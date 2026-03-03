@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meetings — Strength Over Speed (SOS)</title>
+  <meta name="description" content="SOS meeting schedule: in-person at Peer Seattle and online. Free, peer-led crystal meth recovery support groups for gay and queer men in Seattle.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="nav" role="navigation">
+  <div class="nav__inner">
+    <a class="nav__logo" href="index.html">
+      <span class="nav__logo-main">Strength Over Speed</span>
+      <span class="nav__logo-sub">SOS &mdash; Seattle</span>
+    </a>
+    <button class="nav__toggle" aria-label="Toggle menu" onclick="this.classList.toggle('open'); document.getElementById('navlinks').classList.toggle('open')">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav__links" id="navlinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">Who We Are</a></li>
+      <li><a href="what-we-do.html">What We Do</a></li>
+      <li><a href="meetings.html" class="active">Meetings</a></li>
+      <li><a href="resources.html">Resources</a></li>
+      <li><a href="friends-family.html">Friends &amp; Family</a></li>
+      <li><a href="our-stories.html">Our Stories</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <span class="pill" style="background: rgba(255,255,255,0.15); color: rgba(255,255,255,0.85); border-color: transparent; margin-bottom: 1rem;">Join Us</span>
+  <h1 class="page-hero__title">Meetings</h1>
+  <p class="page-hero__desc">
+    Free, peer-facilitated support groups every week &mdash; in person in Seattle and online.
+    No registration required. Just show up.
+  </p>
+</section>
+
+<!-- Meeting Schedule -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-header__eyebrow">Schedule</p>
+      <h2 class="section-header__title">Weekly Meeting Times</h2>
+      <p class="section-header__desc">
+        All SOS meetings are open to gay, bisexual, queer men and male-identified individuals.
+        All are free to attend.
+      </p>
+    </div>
+
+    <div style="overflow-x: auto; border-radius: var(--radius); box-shadow: var(--shadow-md);">
+      <table class="meetings-table">
+        <thead>
+          <tr>
+            <th>Day</th>
+            <th>Time</th>
+            <th>Location</th>
+            <th>Format</th>
+          </tr>
+        </thead>
+        <!-- Static rows are the fallback. JavaScript replaces them when Google Calendar loads. -->
+        <tbody id="meeting-rows">
+          <tr>
+            <td>Sunday</td>
+            <td>10:00 AM</td>
+            <td>Peer Seattle &mdash; 1520 Bellevue Ave, Ste 100, Seattle, WA</td>
+            <td><span class="badge badge--inperson">In Person</span></td>
+          </tr>
+          <tr>
+            <td>Monday</td>
+            <td>2:00 PM</td>
+            <td>Peer Seattle &mdash; 1520 Bellevue Ave, Ste 100, Seattle, WA</td>
+            <td><span class="badge badge--inperson">In Person</span></td>
+          </tr>
+          <tr>
+            <td>Tuesday</td>
+            <td>6:00 PM</td>
+            <td>Peer Seattle &mdash; 1520 Bellevue Ave, Ste 100, Seattle, WA</td>
+            <td><span class="badge badge--inperson">In Person</span></td>
+          </tr>
+          <tr>
+            <td>Wednesday</td>
+            <td>TBA</td>
+            <td>Online via Zoom &mdash; contact us for link</td>
+            <td><span class="badge badge--online">Online</span></td>
+          </tr>
+          <tr>
+            <td>Friday</td>
+            <td>6:00 PM</td>
+            <td>Peer Seattle &mdash; 1520 Bellevue Ave, Ste 100, Seattle, WA</td>
+            <td><span class="badge badge--inperson">In Person</span></td>
+          </tr>
+          <tr>
+            <td>Saturday</td>
+            <td>TBA</td>
+            <td>Online via Zoom &mdash; contact us for link</td>
+            <td><span class="badge badge--online">Online</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Status line: updated by JS when calendar loads -->
+    <p id="cal-status" style="margin-top:0.75rem; font-size:0.8rem; color:var(--text-light); text-align:right;"></p>
+
+    <div class="callout callout--teal" style="margin-top: 1.25rem;">
+      <p>
+        <strong>Online meeting links:</strong> For Wednesday and Saturday Zoom links,
+        email us at <a href="mailto:sosonlinemeetings@gmail.com">sosonlinemeetings@gmail.com</a>.
+      </p>
+    </div>
+
+    <!-- Subscribe buttons -->
+    <div style="display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; margin-top: 2rem;">
+      <a href="https://calendar.google.com/calendar/r?cid=ff8ca5c2afc3c79a7d30bf416b943bfad8c051a93214634a1d60992de8f42cd5@group.calendar.google.com"
+         target="_blank" rel="noopener" class="btn btn--purple">
+        + Add to Google Calendar
+      </a>
+      <a href="https://calendar.google.com/calendar/ical/ff8ca5c2afc3c79a7d30bf416b943bfad8c051a93214634a1d60992de8f42cd5@group.calendar.google.com/public/basic.ics"
+         class="btn btn--outline" style="border-color: var(--purple-mid); color: var(--purple-mid);">
+        Subscribe via iCal (Apple / Outlook)
+      </a>
+    </div>
+    <p style="text-align:center; margin-top:0.75rem; font-size:0.85rem; color:var(--text-light);">
+      Subscribing adds SOS meetings to your personal calendar and keeps them updated automatically.
+    </p>
+  </div>
+</section>
+
+<!-- Location Info -->
+<section class="section section--tinted">
+  <div class="container">
+    <div class="grid-2">
+      <div>
+        <p class="section-header__eyebrow" style="text-align:left;">In-Person Location</p>
+        <h2 style="margin-bottom: 1rem;">Peer Seattle</h2>
+        <p style="font-size: 1.05rem; font-weight: 500; color: var(--text-dark);">
+          1520 Bellevue Ave, Suite 100<br>Seattle, WA
+        </p>
+        <p style="color: var(--text-mid); margin-top: 0.75rem;">
+          Peer Seattle is located on Capitol Hill. The building is accessible by bus
+          and is near Seattle&rsquo;s LGBTQ+ community hub.
+        </p>
+        <p style="color: var(--text-mid);">
+          Meetings are held in a private, welcoming space. No one will see you
+          walking in or out except other SOS members.
+        </p>
+        <div class="callout" style="margin-top: 1rem;">
+          <p>
+            <strong>Questions about getting there?</strong> Email
+            <a href="mailto:sosonlinemeetings@gmail.com">sosonlinemeetings@gmail.com</a>
+            and someone will help you plan your first visit.
+          </p>
+        </div>
+      </div>
+      <div>
+        <p class="section-header__eyebrow" style="text-align:left;">Online Meetings</p>
+        <h2 style="margin-bottom: 1rem;">Join from anywhere</h2>
+        <p style="color: var(--text-mid);">
+          Our online meetings are open to anyone, anywhere. If you&rsquo;re outside of
+          Seattle, struggling with transportation, or simply prefer the privacy of
+          joining from home, online meetings are a great option.
+        </p>
+        <p style="color: var(--text-mid);">
+          Online meetings use the same open-discussion format as in-person groups.
+          A webcam is helpful but not required.
+        </p>
+        <a href="mailto:sosonlinemeetings@gmail.com?subject=Online Meeting Link" class="btn btn--primary" style="margin-top:1rem; display: inline-block;">
+          Request Online Meeting Link
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- What to Expect -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-header__eyebrow">First Time?</p>
+      <h2 class="section-header__title">What to expect at your first meeting</h2>
+    </div>
+    <div class="grid-3">
+      <div class="card">
+        <div class="card__icon">&#128075;</div>
+        <p class="card__title">Arrive as you are</p>
+        <p class="card__body">
+          You don&rsquo;t need to have quit, have a sobriety date, or commit to anything.
+          Just come and listen. You can share as much or as little as you want.
+        </p>
+      </div>
+      <div class="card">
+        <div class="card__icon">&#128172;</div>
+        <p class="card__title">Open conversation</p>
+        <p class="card__body">
+          Unlike 12-step meetings, we don&rsquo;t have cross-talk rules. You can respond
+          to others, ask questions, and engage in real dialogue.
+        </p>
+      </div>
+      <div class="card">
+        <div class="card__icon">&#128274;</div>
+        <p class="card__title">Confidential</p>
+        <p class="card__body">
+          What&rsquo;s shared in the group stays in the group. SOS is a
+          judgment-free space. Names and stories are kept private.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="quote-block">
+  <p class="quote-block__text">
+    &ldquo;If you&rsquo;re struggling in any way with your methamphetamine use, know a close
+    friend or family member who is struggling, or are just curious, then we welcome you
+    to join us at our next SOS meeting.&rdquo;
+  </p>
+  <p class="quote-block__attr">Strength Over Speed</p>
+</div>
+
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__brand">
+      <a class="nav__logo" href="index.html" style="margin-bottom: 0.75rem;">
+        <span class="nav__logo-main">Strength Over Speed</span>
+        <span class="nav__logo-sub">SOS &mdash; Seattle</span>
+      </a>
+      <p>A free, all-volunteer peer support community for gay, bisexual, and queer men in recovery from crystal meth. In Seattle since 2005.</p>
+      <p style="margin-top: 0.75rem;"><a href="mailto:sosonlinemeetings@gmail.com" style="color: rgba(255,255,255,0.6);">sosonlinemeetings@gmail.com</a></p>
+    </div>
+    <div>
+      <p class="footer__heading">Navigation</p>
+      <ul class="footer__links">
+        <li><a href="about.html">Who We Are</a></li>
+        <li><a href="what-we-do.html">What We Do</a></li>
+        <li><a href="meetings.html">Meetings</a></li>
+        <li><a href="resources.html">Community Resources</a></li>
+        <li><a href="friends-family.html">Friends &amp; Family</a></li>
+        <li><a href="our-stories.html">Our Stories</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer__heading">Get Help Now</p>
+      <ul class="footer__links">
+        <li><a href="tel:206-461-3222">Crisis Line: 206-461-3222</a></li>
+        <li><a href="tel:206-722-3700">Alcohol/Drug Help: 206-722-3700</a></li>
+        <li><a href="resources.html">All Resources &rarr;</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer__bottom">
+    <p>&copy; 2025 Strength Over Speed (SOS). &bull; <a href="mailto:sosonlinemeetings@gmail.com">Contact Us</a></p>
+  </div>
+</footer>
+
+
+<script>
+/*
+ * Google Calendar → Meetings Table
+ * ---------------------------------
+ * SETUP: Replace YOUR_GOOGLE_API_KEY below with a real key.
+ *
+ * Steps to get a free API key:
+ *   1. Go to https://console.cloud.google.com/
+ *   2. Create a project (or select an existing one)
+ *   3. Enable the "Google Calendar API" for that project
+ *   4. Go to Credentials → Create Credentials → API Key
+ *   5. (Recommended) Restrict the key to the Calendar API and your domain
+ *   6. Paste the key below in place of YOUR_GOOGLE_API_KEY
+ *
+ * The calendar must be set to "Public" in Google Calendar settings.
+ */
+
+(function () {
+  var API_KEY     = 'AIzaSyCM0O6eJMzAb8NsmuOiyXpvOOpAqM-ES6I';
+  var CALENDAR_ID = 'ff8ca5c2afc3c79a7d30bf416b943bfad8c051a93214634a1d60992de8f42cd5@group.calendar.google.com';
+  var DAY_NAMES   = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+
+  /* Don't run if no real key has been set */
+  if (!API_KEY || API_KEY === 'YOUR_GOOGLE_API_KEY') return;
+
+  /* Fetch the next 28 days of events */
+  var now    = new Date();
+  var cutoff = new Date(now.getTime() + 28 * 24 * 60 * 60 * 1000);
+  var url    = 'https://www.googleapis.com/calendar/v3/calendars/'
+             + encodeURIComponent(CALENDAR_ID)
+             + '/events?key=' + API_KEY
+             + '&singleEvents=true'
+             + '&orderBy=startTime'
+             + '&timeMin=' + now.toISOString()
+             + '&timeMax=' + cutoff.toISOString()
+             + '&maxResults=50';
+
+  fetch(url)
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      if (!data.items || !data.items.length) return;
+
+      /* Deduplicate recurring events by day-of-week + time key */
+      var seen    = {};
+      var entries = [];
+
+      data.items.forEach(function (ev) {
+        var start = ev.start && (ev.start.dateTime || ev.start.date);
+        if (!start) return;
+
+        var d       = new Date(start);
+        var dayIdx  = d.getDay();           /* 0 = Sunday */
+        var hours   = d.getHours();
+        var mins    = d.getMinutes();
+        var ampm    = hours >= 12 ? 'PM' : 'AM';
+        var h12     = hours % 12 || 12;
+        var timeStr = h12 + (mins ? ':' + String(mins).padStart(2,'0') : ':00') + ' ' + ampm;
+        var key     = dayIdx + '|' + timeStr;
+
+        if (seen[key]) return;
+        seen[key] = true;
+
+        var location = (ev.location || '').trim();
+        var lcLoc    = location.toLowerCase();
+        var isOnline = !location
+                     || lcLoc.indexOf('zoom')    !== -1
+                     || lcLoc.indexOf('online')  !== -1
+                     || lcLoc.indexOf('http')    !== -1
+                     || lcLoc.indexOf('virtual') !== -1;
+
+        if (!isOnline && !location) {
+          location = 'Online via Zoom — contact us for link';
+          isOnline = true;
+        }
+
+        entries.push({
+          dayIdx:   dayIdx,
+          dayName:  DAY_NAMES[dayIdx],
+          timeStr:  timeStr,
+          location: location || 'Online via Zoom — contact us for link',
+          online:   isOnline
+        });
+      });
+
+      if (!entries.length) return;
+
+      /* Sort Sunday → Saturday */
+      entries.sort(function (a, b) { return a.dayIdx - b.dayIdx; });
+
+      /* Build table rows */
+      var html = entries.map(function (e) {
+        var badge = e.online
+          ? '<span class="badge badge--online">Online</span>'
+          : '<span class="badge badge--inperson">In Person</span>';
+        return '<tr>'
+             + '<td>' + e.dayName   + '</td>'
+             + '<td>' + e.timeStr   + '</td>'
+             + '<td>' + e.location  + '</td>'
+             + '<td>' + badge       + '</td>'
+             + '</tr>';
+      }).join('');
+
+      document.getElementById('meeting-rows').innerHTML = html;
+
+      /* Update status line */
+      var status = document.getElementById('cal-status');
+      if (status) {
+        var now2 = new Date();
+        status.textContent = 'Schedule updated from Google Calendar · '
+          + now2.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      }
+    })
+    .catch(function () {
+      /* Silently fall back to static rows already in the HTML */
+    });
+}());
+</script>
+
+</body>
+</html>

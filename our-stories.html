@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Stories — Strength Over Speed (SOS)</title>
+  <meta name="description" content="Personal stories of recovery from gay and queer men at Strength Over Speed (SOS) in Seattle. Hear how others have navigated life after crystal meth.">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .story-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 2rem;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      border-top: 4px solid var(--purple-mid);
+    }
+    .story-card__quote {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-style: italic;
+      color: var(--text-dark);
+      line-height: 1.65;
+      margin-bottom: 1.25rem;
+    }
+    .story-card__quote::before { content: '\201C'; color: var(--purple-mid); font-size: 2rem; line-height: 0; vertical-align: -0.4em; margin-right: 0.15em; }
+    .story-card__quote::after  { content: '\201D'; color: var(--purple-mid); font-size: 2rem; line-height: 0; vertical-align: -0.4em; margin-left: 0.15em; }
+    .story-card__attr {
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-light);
+    }
+    .story-submit {
+      background: linear-gradient(135deg, var(--purple-deep), var(--purple-mid));
+      border-radius: var(--radius);
+      padding: 3rem 2rem;
+      text-align: center;
+      color: white;
+    }
+    .story-submit h3 { color: white; margin-bottom: 0.75rem; }
+    .story-submit p { color: rgba(255,255,255,0.82); max-width: 500px; margin: 0 auto 1.5rem; }
+  </style>
+</head>
+<body>
+
+<nav class="nav" role="navigation">
+  <div class="nav__inner">
+    <a class="nav__logo" href="index.html">
+      <span class="nav__logo-main">Strength Over Speed</span>
+      <span class="nav__logo-sub">SOS &mdash; Seattle</span>
+    </a>
+    <button class="nav__toggle" aria-label="Toggle menu" onclick="this.classList.toggle('open'); document.getElementById('navlinks').classList.toggle('open')">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav__links" id="navlinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">Who We Are</a></li>
+      <li><a href="what-we-do.html">What We Do</a></li>
+      <li><a href="meetings.html">Meetings</a></li>
+      <li><a href="resources.html">Resources</a></li>
+      <li><a href="friends-family.html">Friends &amp; Family</a></li>
+      <li><a href="our-stories.html" class="active">Our Stories</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <span class="pill" style="background: rgba(255,255,255,0.15); color: rgba(255,255,255,0.85); border-color: transparent; margin-bottom: 1rem;">Community Voices</span>
+  <h1 class="page-hero__title">Our Stories</h1>
+  <p class="page-hero__desc">
+    Recovery has many faces and many paths. Here are some of the voices from our community &mdash;
+    honest, real, and shared with hope.
+  </p>
+</section>
+
+<!-- Intro -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="callout callout--teal" style="max-width: 780px; margin: 0 auto 3rem;">
+      <p>
+        <strong>Why share?</strong> Negative media about meth perpetuates stigma, and many
+        people who use or have used crystal feel isolated and afraid to talk openly.
+        By sharing our stories &mdash; on our own terms &mdash; we help reduce that stigma
+        and show that recovery is real and possible.
+      </p>
+    </div>
+
+    <!-- Story Cards -->
+    <div class="grid-2">
+
+      <div class="story-card">
+        <p class="story-card__quote">
+          I came to my first SOS meeting not sure I was even ready to quit.
+          No one pressured me. No one told me I was doing it wrong. They just
+          listened and shared their own experiences. That was what I needed
+          to hear &mdash; that people had been where I was and found a way through.
+        </p>
+        <p class="story-card__attr">SOS Member &mdash; Seattle</p>
+      </div>
+
+      <div class="story-card">
+        <p class="story-card__quote">
+          What I found at SOS was a group of people who understood the intersection
+          of being gay and trying to get sober. We could talk about sex, about dating,
+          about all the stuff that comes up when you&rsquo;re rebuilding your life.
+          That honesty changed everything for me.
+        </p>
+        <p class="story-card__attr">SOS Member &mdash; Capitol Hill</p>
+      </div>
+
+      <div class="story-card">
+        <p class="story-card__quote">
+          The open discussion format made a huge difference. I&rsquo;d tried 12-step
+          and felt like I was constantly holding back. At SOS, I could actually
+          ask questions and get real answers. It felt like talking to friends
+          who happened to have been through what I was going through.
+        </p>
+        <p class="story-card__attr">SOS Member</p>
+      </div>
+
+      <div class="story-card">
+        <p class="story-card__quote">
+          Recovery isn&rsquo;t something that happened to me in a single moment.
+          It&rsquo;s something I&rsquo;m building, piece by piece. SOS has been
+          a constant part of that &mdash; a place I can come back to, no matter
+          where I am in my journey.
+        </p>
+        <p class="story-card__attr">Long-Time SOS Member</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Quote -->
+<div class="quote-block">
+  <p class="quote-block__text">
+    &ldquo;Everyone&rsquo;s recovery is unique&hellip;
+    Build your own recovery journey by focusing on who you were, who you are,
+    and who you want to become.&rdquo;
+  </p>
+  <p class="quote-block__attr">The SOS Community</p>
+</div>
+
+<!-- Share Your Story -->
+<section class="section section--tinted">
+  <div class="container">
+    <div style="max-width: 780px; margin: 0 auto;">
+      <div class="story-submit">
+        <h3>Share Your Story</h3>
+        <p>
+          Your experience could make a real difference for someone who is struggling
+          right now. If you&rsquo;d like to share your story (anonymously or by name),
+          we&rsquo;d be honored to include it here.
+        </p>
+        <a href="mailto:sosonlinemeetings@gmail.com?subject=I want to share my story" class="btn btn--outline">
+          Get in Touch
+        </a>
+      </div>
+
+      <div class="callout" style="margin-top: 2rem;">
+        <p>
+          <strong>Want to come to a meeting first?</strong> You don&rsquo;t have to share
+          anything publicly. Come to an SOS group and experience the community in person.
+          <a href="meetings.html">See the meeting schedule &rarr;</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__brand">
+      <a class="nav__logo" href="index.html" style="margin-bottom: 0.75rem;">
+        <span class="nav__logo-main">Strength Over Speed</span>
+        <span class="nav__logo-sub">SOS &mdash; Seattle</span>
+      </a>
+      <p>A free, all-volunteer peer support community for gay, bisexual, and queer men in recovery from crystal meth. In Seattle since 2005.</p>
+      <p style="margin-top: 0.75rem;"><a href="mailto:sosonlinemeetings@gmail.com" style="color: rgba(255,255,255,0.6);">sosonlinemeetings@gmail.com</a></p>
+    </div>
+    <div>
+      <p class="footer__heading">Navigation</p>
+      <ul class="footer__links">
+        <li><a href="about.html">Who We Are</a></li>
+        <li><a href="what-we-do.html">What We Do</a></li>
+        <li><a href="meetings.html">Meetings</a></li>
+        <li><a href="resources.html">Community Resources</a></li>
+        <li><a href="friends-family.html">Friends &amp; Family</a></li>
+        <li><a href="our-stories.html">Our Stories</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer__heading">Get Help Now</p>
+      <ul class="footer__links">
+        <li><a href="tel:206-461-3222">Crisis Line: 206-461-3222</a></li>
+        <li><a href="tel:206-722-3700">Alcohol/Drug Help: 206-722-3700</a></li>
+        <li><a href="resources.html">All Resources &rarr;</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer__bottom">
+    <p>&copy; 2025 Strength Over Speed (SOS). &bull; <a href="mailto:sosonlinemeetings@gmail.com">Contact Us</a></p>
+  </div>
+</footer>
+
+</body>
+</html>
