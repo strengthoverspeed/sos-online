@@ -477,6 +477,15 @@ li { margin-bottom: 0.4rem; }
   font-size: 0.82rem;
   color: var(--text-mid);
 }
+.resource-list .resource-email {
+  font-size: 0.85rem;
+  color: var(--text-mid);
+}
+.resource-list .resource-contact-note {
+  font-size: 0.82rem;
+  color: var(--text-light);
+  font-style: italic;
+}
 .resource-list a {
   font-size: 0.82rem;
   color: var(--purple-mid);

@@ -73,7 +73,8 @@
       </p>
     </div>
 
-    <div class="grid-2">
+    <!-- Resources are loaded dynamically from Google Sheets. Static cards below are the fallback. -->
+    <div class="grid-2" id="resources-grid">
 
       <!-- Support Groups -->
       <div class="card">
@@ -211,6 +212,8 @@
       </div>
 
     </div>
+
+    <p id="resources-status" style="margin-top: 0.75rem; font-size: 0.8rem; color: var(--text-light); text-align: right;"></p>
   </div>
 </section>
 
@@ -271,6 +274,147 @@
     <p>&copy; 2025 Strength Over Speed (SOS). &bull; <a href="mailto:sosonlinemeetings@gmail.com">Contact Us</a></p>
   </div>
 </footer>
+
+
+<script>
+/*
+ * Google Sheets → Resources Grid
+ * --------------------------------
+ * SETUP: Fill in your API key and Spreadsheet ID below.
+ *
+ * Steps to get a Google Sheets API key:
+ *   1. Go to https://console.cloud.google.com/
+ *   2. Create or select a project
+ *   3. Enable the "Google Sheets API" for that project
+ *   4. Go to Credentials → Create Credentials → API Key
+ *   5. (Recommended) Restrict the key to the Sheets API and your domain
+ *   6. Paste the key below in place of YOUR_GOOGLE_API_KEY
+ *
+ * Steps to set up the Google Sheet:
+ *   1. Create a new Google Sheet at https://sheets.google.com
+ *   2. Create one tab per resource category (e.g. "Support Groups", "Crisis Lines")
+ *   3. Row 1 of each tab must be headers:
+ *        A: Organization Name  B: Phone  C: Email  D: Website  E: Description
+ *   4. Fill in rows 2+ with your resource data (leave cells blank if not applicable)
+ *   5. Share the sheet: File → Share → Anyone with the link → Viewer
+ *   6. Copy the Spreadsheet ID from the URL:
+ *        https://docs.google.com/spreadsheets/d/SPREADSHEET_ID/edit
+ *   7. Paste the ID below in place of YOUR_SPREADSHEET_ID
+ *
+ * If no API key or Spreadsheet ID is set, the static fallback content shows instead.
+ */
+
+(function () {
+  var API_KEY        = 'YOUR_GOOGLE_API_KEY';
+  var SPREADSHEET_ID = 'YOUR_SPREADSHEET_ID';
+  var BASE           = 'https://sheets.googleapis.com/v4/spreadsheets/';
+
+  /* Don't run if placeholders haven't been replaced */
+  if (!API_KEY || API_KEY === 'YOUR_GOOGLE_API_KEY') return;
+  if (!SPREADSHEET_ID || SPREADSHEET_ID === 'YOUR_SPREADSHEET_ID') return;
+
+  /* Safely encode text for HTML output */
+  function escapeHtml(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  /* Build the HTML for one resource item (one spreadsheet row) */
+  function buildItem(row) {
+    var name    = (row[0] || '').trim();
+    var phone   = (row[1] || '').trim();
+    var email   = (row[2] || '').trim();
+    var website = (row[3] || '').trim();
+    var desc    = (row[4] || '').trim();
+
+    if (!name) return '';
+
+    var html = '<li>';
+    html += '<span class="resource-name">' + escapeHtml(name) + '</span>';
+
+    if (phone) {
+      var telHref = 'tel:' + phone.replace(/[^0-9+\-]/g, '');
+      html += '<span class="resource-phone"><a href="' + telHref + '">' + escapeHtml(phone) + '</a></span>';
+    }
+
+    if (email) {
+      html += '<span class="resource-email"><a href="mailto:' + escapeHtml(email) + '">' + escapeHtml(email) + '</a></span>';
+    }
+
+    if (desc) {
+      html += '<span class="resource-desc">' + escapeHtml(desc) + '</span>';
+    }
+
+    if (website) {
+      /* Strip protocol and www for display text */
+      var displayUrl = website.replace(/^https?:\/\/(www\.)?/, '');
+      html += '<a href="' + escapeHtml(website) + '" target="_blank" rel="noopener">' + escapeHtml(displayUrl) + '</a>';
+    } else if (phone || email) {
+      html += '<span class="resource-contact-note">Call or email for more information</span>';
+    }
+
+    html += '</li>';
+    return html;
+  }
+
+  /* Step 1: Fetch sheet names from spreadsheet metadata */
+  fetch(BASE + SPREADSHEET_ID + '?key=' + API_KEY + '&fields=sheets.properties.title')
+    .then(function (r) { return r.json(); })
+    .then(function (meta) {
+      var sheets = meta.sheets || [];
+      if (!sheets.length) return;
+
+      /* Step 2: Fetch each tab's data in parallel */
+      var fetches = sheets.map(function (sheet) {
+        var tabName = sheet.properties.title;
+        var url = BASE + SPREADSHEET_ID
+                + '/values/' + encodeURIComponent(tabName) + '!A:E'
+                + '?key=' + API_KEY;
+        return fetch(url)
+          .then(function (r) { return r.json(); })
+          .then(function (data) {
+            return { name: tabName, rows: data.values || [] };
+          });
+      });
+
+      return Promise.all(fetches);
+    })
+    .then(function (sheets) {
+      if (!sheets) return;
+
+      /* Only keep tabs that have at least one data row (row 1 is headers) */
+      var populated = sheets.filter(function (s) { return s.rows.length > 1; });
+      if (!populated.length) return;
+
+      var gridHtml = populated.map(function (sheet) {
+        /* Skip header row (index 0) */
+        var items = sheet.rows.slice(1).map(buildItem).join('');
+        if (!items) return '';
+        return '<div class="card">'
+             + '<p class="resource-section__title">' + escapeHtml(sheet.name) + '</p>'
+             + '<ul class="resource-list">' + items + '</ul>'
+             + '</div>';
+      }).join('');
+
+      if (!gridHtml) return;
+
+      document.getElementById('resources-grid').innerHTML = gridHtml;
+
+      var status = document.getElementById('resources-status');
+      if (status) {
+        var now = new Date();
+        status.textContent = 'Resources updated from Google Sheets \u00b7 '
+          + now.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      }
+    })
+    .catch(function () {
+      /* Silently fall back to the static resource cards already in the HTML */
+    });
+}());
+</script>
 
 </body>
 </html>
