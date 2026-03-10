@@ -250,42 +250,19 @@
 
 <script>
 /*
- * Google Sheets → Resources Grid
- * --------------------------------
- * SETUP: Fill in your API key and Spreadsheet ID below.
+ * Google Sheets (published CSV) → Resources Grid
+ * ------------------------------------------------
+ * Sheet column order (Row 1 = headers, ignored):
+ *   A: Category  B: Name  C: Phone  D: Email  E: Website  F: Description
  *
- * Steps to get a Google Sheets API key:
- *   1. Go to https://console.cloud.google.com/
- *   2. Create or select a project
- *   3. Enable the "Google Sheets API" for that project
- *   4. Go to Credentials → Create Credentials → API Key
- *   5. (Recommended) Restrict the key to the Sheets API and your domain
- *   6. Paste the key below in place of YOUR_GOOGLE_API_KEY
- *
- * Steps to set up the Google Sheet:
- *   1. Create a new Google Sheet at https://sheets.google.com
- *   2. Create one tab per resource category (e.g. "Support Groups", "Crisis Lines")
- *   3. Row 1 of each tab must be headers:
- *        A: Organization Name  B: Phone  C: Email  D: Website  E: Description
- *   4. Fill in rows 2+ with your resource data (leave cells blank if not applicable)
- *   5. Share the sheet: File → Share → Anyone with the link → Viewer
- *   6. Copy the Spreadsheet ID from the URL:
- *        https://docs.google.com/spreadsheets/d/SPREADSHEET_ID/edit
- *   7. Paste the ID below in place of YOUR_SPREADSHEET_ID
- *
- * If no API key or Spreadsheet ID is set, the static fallback content shows instead.
+ * Rows are grouped by the Category column into separate cards.
+ * To update resources, just edit the Google Sheet — no code changes needed.
+ * Falls back silently to the static HTML below if the fetch fails.
  */
 
 (function () {
-  var API_KEY        = 'AIzaSyBTpv0dMnGjmbcjRDIu6akYvLjs3dHGYQc';
-  var SPREADSHEET_ID = '1XiUfxlfc4l_hIxGJ3kxP2d_f1S1ePtcbBWETiIluEKc';
-  var BASE           = 'https://sheets.googleapis.com/v4/spreadsheets/';
+  var CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRPaKZ-CpAKxrCsuOnUsFNUZA6ANUuVV1JqmfEYC2q2sqJNWuNMEo1vW_L2YgZ3MJVM0xspc-f0rQVz/pub?output=csv';
 
-  /* Don't run if placeholders haven't been replaced */
-  if (!API_KEY || API_KEY === 'YOUR_GOOGLE_API_KEY') return;
-  if (!SPREADSHEET_ID || SPREADSHEET_ID === 'YOUR_SPREADSHEET_ID') return;
-
-  /* Safely encode text for HTML output */
   function escapeHtml(str) {
     return String(str)
       .replace(/&/g, '&amp;')
@@ -294,13 +271,33 @@
       .replace(/"/g, '&quot;');
   }
 
-  /* Build the HTML for one resource item (one spreadsheet row) */
+  /* RFC-4180 CSV parser — handles quoted fields containing commas and newlines */
+  function parseCsv(text) {
+    var rows = [], row = [], cell = '', inQuote = false;
+    for (var i = 0; i < text.length; i++) {
+      var ch = text[i];
+      if (inQuote) {
+        if (ch === '"' && text[i + 1] === '"') { cell += '"'; i++; }
+        else if (ch === '"')                   { inQuote = false; }
+        else                                   { cell += ch; }
+      } else {
+        if      (ch === '"')  { inQuote = true; }
+        else if (ch === ',')  { row.push(cell); cell = ''; }
+        else if (ch === '\n') { row.push(cell); rows.push(row); row = []; cell = ''; }
+        else if (ch !== '\r') { cell += ch; }
+      }
+    }
+    row.push(cell);
+    if (row.some(function (c) { return c; })) rows.push(row);
+    return rows;
+  }
+
   function buildItem(row) {
-    var name    = (row[0] || '').trim();
-    var phone   = (row[1] || '').trim();
-    var email   = (row[2] || '').trim();
-    var website = (row[3] || '').trim();
-    var desc    = (row[4] || '').trim();
+    var name    = (row[1] || '').trim();
+    var phone   = (row[2] || '').trim();
+    var email   = (row[3] || '').trim();
+    var website = (row[4] || '').trim();
+    var desc    = (row[5] || '').trim();
 
     if (!name) return '';
 
@@ -308,67 +305,46 @@
     html += '<span class="resource-name">' + escapeHtml(name) + '</span>';
 
     if (phone) {
-      var telHref = 'tel:' + phone.replace(/[^0-9+\-]/g, '');
+      var telHref = 'tel:' + phone.replace(/[^0-9+]/g, '');
       html += '<span class="resource-phone"><a href="' + telHref + '">' + escapeHtml(phone) + '</a></span>';
     }
-
     if (email) {
       html += '<span class="resource-email"><a href="mailto:' + escapeHtml(email) + '">' + escapeHtml(email) + '</a></span>';
     }
-
     if (desc) {
       html += '<span class="resource-desc">' + escapeHtml(desc) + '</span>';
     }
-
     if (website) {
-      /* Strip protocol and www for display text */
-      var displayUrl = website.replace(/^https?:\/\/(www\.)?/, '');
-      html += '<a href="' + escapeHtml(website) + '" target="_blank" rel="noopener">' + escapeHtml(displayUrl) + '</a>';
-    } else if (phone || email) {
-      html += '<span class="resource-contact-note">Call or email for more information</span>';
+      var display = website.replace(/^https?:\/\/(www\.)?/, '');
+      html += '<a href="' + escapeHtml(website) + '" target="_blank" rel="noopener">' + escapeHtml(display) + '</a>';
     }
 
     html += '</li>';
     return html;
   }
 
-  /* Step 1: Fetch sheet names from spreadsheet metadata */
-  fetch(BASE + SPREADSHEET_ID + '?key=' + API_KEY + '&fields=sheets.properties.title')
-    .then(function (r) { return r.json(); })
-    .then(function (meta) {
-      var sheets = meta.sheets || [];
-      if (!sheets.length) return;
+  fetch(CSV_URL)
+    .then(function (r) { return r.text(); })
+    .then(function (csvText) {
+      var rows = parseCsv(csvText);
+      if (rows.length < 2) return; // header only or empty
 
-      /* Step 2: Fetch each tab's data in parallel */
-      var fetches = sheets.map(function (sheet) {
-        var tabName = sheet.properties.title;
-        var url = BASE + SPREADSHEET_ID
-                + '/values/' + encodeURIComponent(tabName) + '!A:E'
-                + '?key=' + API_KEY;
-        return fetch(url)
-          .then(function (r) { return r.json(); })
-          .then(function (data) {
-            return { name: tabName, rows: data.values || [] };
-          });
-      });
+      /* Group data rows (skip row 0 header) by Category (col A) */
+      var categories = {}, order = [];
+      for (var i = 1; i < rows.length; i++) {
+        var cat = (rows[i][0] || '').trim();
+        if (!cat) continue;
+        if (!categories[cat]) { categories[cat] = []; order.push(cat); }
+        categories[cat].push(rows[i]);
+      }
+      if (!order.length) return;
 
-      return Promise.all(fetches);
-    })
-    .then(function (sheets) {
-      if (!sheets) return;
-
-      /* Only keep tabs that have at least one data row (row 1 is headers) */
-      var populated = sheets.filter(function (s) { return s.rows.length > 1; });
-      if (!populated.length) return;
-
-      var gridHtml = populated.map(function (sheet) {
-        /* Skip header row (index 0) */
-        var items = sheet.rows.slice(1).map(buildItem).join('');
-        if (!items) return '';
-        return '<div class="card">'
-             + '<p class="resource-section__title">' + escapeHtml(sheet.name) + '</p>'
-             + '<ul class="resource-list">' + items + '</ul>'
-             + '</div>';
+      var gridHtml = order.map(function (cat) {
+        var items = categories[cat].map(buildItem).join('');
+        return items
+          ? '<div class="card"><p class="resource-section__title">' + escapeHtml(cat) + '</p>'
+            + '<ul class="resource-list">' + items + '</ul></div>'
+          : '';
       }).join('');
 
       if (!gridHtml) return;
