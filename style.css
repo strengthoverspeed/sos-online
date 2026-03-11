@@ -74,7 +74,7 @@ li { margin-bottom: 0.4rem; }
 }
 
 .section {
-  padding: 5rem 0;
+  padding: 3.5rem 0;
 }
 .section--alt {
   background: var(--white);
@@ -172,7 +172,7 @@ li { margin-bottom: 0.4rem; }
 .hero {
   background: linear-gradient(135deg, var(--purple-deep) 0%, #6B3FA0 60%, var(--teal-dark) 100%);
   color: white;
-  padding: 7rem 1.5rem 6rem;
+  padding: 5rem 1.5rem 4rem;
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -190,14 +190,14 @@ li { margin-bottom: 0.4rem; }
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: rgba(255,255,255,0.7);
-  margin-bottom: 1.25rem;
+  margin-bottom: 0.75rem;
 }
 .hero__title {
   font-family: 'Playfair Display', serif;
   font-size: clamp(2.2rem, 6vw, 4rem);
   font-weight: 700;
   color: #FFFFFF;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   position: relative;
 }
 .hero__title em {
@@ -208,7 +208,7 @@ li { margin-bottom: 0.4rem; }
   font-size: clamp(1rem, 2.5vw, 1.25rem);
   color: rgba(255,255,255,0.88);
   max-width: 680px;
-  margin: 0 auto 2rem;
+  margin: 0 auto 1.5rem;
   line-height: 1.65;
   position: relative;
 }
@@ -272,7 +272,7 @@ li { margin-bottom: 0.4rem; }
 .card {
   background: var(--white);
   border-radius: var(--radius);
-  padding: 2rem;
+  padding: 1.5rem;
   box-shadow: var(--shadow-sm);
   border: 1px solid var(--border);
   transition: var(--transition);
@@ -322,7 +322,7 @@ li { margin-bottom: 0.4rem; }
 .section-header {
   text-align: center;
   max-width: 680px;
-  margin: 0 auto 3.5rem;
+  margin: 0 auto 2.5rem;
 }
 .section-header__eyebrow {
   font-size: 0.75rem;
@@ -343,7 +343,7 @@ li { margin-bottom: 0.4rem; }
 /* --- Page Hero (inner pages) --- */
 .page-hero {
   background: linear-gradient(135deg, var(--purple-deep) 0%, #7B4BBF 100%);
-  padding: 4.5rem 1.5rem 4rem;
+  padding: 3rem 1.5rem 2.5rem;
   text-align: center;
   color: white;
 }
@@ -362,7 +362,7 @@ li { margin-bottom: 0.4rem; }
 .quote-block {
   background: linear-gradient(135deg, var(--purple-deep), var(--purple-mid));
   color: white;
-  padding: 4rem 2rem;
+  padding: 2.75rem 2rem;
   text-align: center;
   position: relative;
 }
@@ -396,7 +396,7 @@ li { margin-bottom: 0.4rem; }
   color: white;
 }
 .meetings-table thead th {
-  padding: 1rem 1.5rem;
+  padding: 0.75rem 1.25rem;
   text-align: left;
   font-family: 'Inter', sans-serif;
   font-weight: 600;
@@ -412,7 +412,7 @@ li { margin-bottom: 0.4rem; }
 .meetings-table tbody tr:last-child { border-bottom: none; }
 .meetings-table tbody tr:hover { background: var(--purple-pale); }
 .meetings-table td {
-  padding: 1rem 1.5rem;
+  padding: 0.75rem 1.25rem;
   font-size: 0.95rem;
   color: var(--text-dark);
   vertical-align: middle;
@@ -516,14 +516,14 @@ li { margin-bottom: 0.4rem; }
 .footer {
   background: var(--footer-bg);
   color: rgba(255,255,255,0.75);
-  padding: 3.5rem 1.5rem 2rem;
+  padding: 2.5rem 1.5rem 1.5rem;
 }
 .footer__inner {
   max-width: 1100px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 2.5rem;
+  gap: 2rem;
 }
 .footer__brand .nav__logo-main {
   font-size: 1.4rem;
@@ -560,8 +560,8 @@ li { margin-bottom: 0.4rem; }
 
 .footer__bottom {
   max-width: 1100px;
-  margin: 2.5rem auto 0;
-  padding-top: 1.5rem;
+  margin: 1.75rem auto 0;
+  padding-top: 1.25rem;
   border-top: 1px solid rgba(255,255,255,0.1);
   text-align: center;
   font-size: 0.8rem;
@@ -612,8 +612,8 @@ li { margin-bottom: 0.4rem; }
   .nav__links.open { display: flex; }
   .nav__links a { padding: 0.65rem 1rem; font-size: 0.9rem; }
   .nav__toggle { display: flex; }
-  .section { padding: 3.5rem 0; }
-  .hero { padding: 5rem 1.5rem 4rem; }
+  .section { padding: 2.5rem 0; }
+  .hero { padding: 3.5rem 1.5rem 2.75rem; }
   .meetings-table { font-size: 0.88rem; }
   .meetings-table thead th,
   .meetings-table td { padding: 0.75rem 1rem; }
