@@ -421,6 +421,12 @@ li { margin-bottom: 0.4rem; }
   font-weight: 600;
   color: var(--purple-deep);
 }
+.meetings-table--compact thead th {
+  padding: 0.6rem 1.25rem;
+}
+.meetings-table--compact td {
+  padding: 0.6rem 1.25rem;
+}
 .badge {
   display: inline-block;
   padding: 0.2rem 0.65rem;
