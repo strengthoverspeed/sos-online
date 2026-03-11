@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SOS Group Guidelines — Strength Over Speed</title>
+  <style>
+    /* --- Variables matching the site theme --- */
+    :root {
+      --purple-deep:  #4A2080;
+      --purple-mid:   #7B4BBF;
+      --purple-light: #E8DEFF;
+      --purple-pale:  #F5F0FF;
+      --teal:         #1A9E9E;
+      --teal-dark:    #147070;
+      --pink:         #D4358E;
+      --text-dark:    #1A1A2E;
+      --text-mid:     #4A4A6A;
+      --text-light:   #767698;
+      --bg:           #FAFAF8;
+      --white:        #FFFFFF;
+      --border:       #E0D8F0;
+      --nav-bg:       #3D1A6F;
+      --footer-bg:    #240F50;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    @page {
+      size: letter;
+      margin: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text-dark);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      width: 8.5in;
+      min-height: 11in;
+    }
+
+    /* --- Header banner --- */
+    .doc-header {
+      background: linear-gradient(135deg, var(--purple-deep) 0%, #6B3FA0 60%, var(--teal-dark) 100%);
+      color: white;
+      padding: 2.5rem 2.5rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .doc-header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      opacity: 0.6;
+    }
+    .doc-header__eyebrow {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 0.6rem;
+      position: relative;
+    }
+    .doc-header__logo {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      line-height: 1.15;
+      margin-bottom: 0.35rem;
+      position: relative;
+    }
+    .doc-header__logo em {
+      font-style: normal;
+      color: #A8EDEA;
+    }
+    .doc-header__sub {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.72);
+      letter-spacing: 0.04em;
+      position: relative;
+    }
+
+    /* --- Tagline bar --- */
+    .tagline-bar {
+      background: var(--purple-deep);
+      color: rgba(255,255,255,0.9);
+      padding: 0.75rem 2.5rem;
+      font-size: 0.92rem;
+      font-weight: 500;
+      border-bottom: 3px solid var(--teal);
+    }
+
+    /* --- Main content --- */
+    .doc-body {
+      padding: 2.2rem 2.5rem 2rem;
+    }
+
+    .section-eyebrow {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--teal-dark);
+      margin-bottom: 0.6rem;
+    }
+    .section-title {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 1.55rem;
+      font-weight: 700;
+      color: var(--purple-deep);
+      margin-bottom: 1.4rem;
+      padding-bottom: 0.7rem;
+      border-bottom: 2px solid var(--purple-light);
+    }
+
+    /* --- Guidelines list --- */
+    .guidelines {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.85rem 1.4rem;
+    }
+
+    .guideline-item {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.95rem 1.1rem;
+      display: flex;
+      gap: 0.85rem;
+      align-items: flex-start;
+      break-inside: avoid;
+    }
+
+    .guideline-num {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      background: linear-gradient(135deg, var(--purple-deep), var(--purple-mid));
+      color: #FFFFFF;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.72rem;
+      font-weight: 700;
+      margin-top: 0.1rem;
+    }
+
+    .guideline-content {}
+
+    .guideline-label {
+      font-family: system-ui, sans-serif;
+      font-weight: 700;
+      font-size: 0.82rem;
+      color: var(--purple-deep);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.25rem;
+    }
+
+    .guideline-text {
+      font-size: 0.82rem;
+      color: var(--text-mid);
+      line-height: 1.55;
+    }
+
+    /* --- Footer notice --- */
+    .doc-notice {
+      background: var(--purple-pale);
+      border-left: 4px solid var(--teal);
+      border-radius: 0 8px 8px 0;
+      padding: 0.9rem 1.25rem;
+      margin-top: 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .doc-notice__icon {
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .doc-notice__text {
+      font-size: 0.82rem;
+      color: var(--text-mid);
+      font-style: italic;
+    }
+
+    /* --- Page footer --- */
+    .doc-footer {
+      background: var(--footer-bg);
+      color: rgba(255,255,255,0.6);
+      padding: 1rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.75rem;
+      margin-top: auto;
+    }
+    .doc-footer strong {
+      color: rgba(255,255,255,0.85);
+      font-weight: 600;
+    }
+    .doc-footer a {
+      color: rgba(255,255,255,0.55);
+      text-decoration: none;
+    }
+
+    /* --- Print optimizations --- */
+    @media print {
+      body { background: white; }
+      .guideline-item { box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="doc-header">
+    <p class="doc-header__eyebrow">Seattle &bull; Capitol Hill &bull; Peer-Led Recovery Support</p>
+    <h1 class="doc-header__logo"><em>Strength</em> Over Speed</h1>
+    <p class="doc-header__sub">A community-based support group</p>
+  </header>
+
+  <div class="tagline-bar">
+    SOS is a peer support group for people trying to reduce or stop using crystal meth.
+  </div>
+
+  <!-- Body -->
+  <main class="doc-body">
+
+    <p class="section-eyebrow">Our Community Agreements</p>
+    <h2 class="section-title">Group Guidelines</h2>
+
+    <ol class="guidelines">
+
+      <li class="guideline-item">
+        <div class="guideline-num">1</div>
+        <div class="guideline-content">
+          <div class="guideline-label">Abstinence</div>
+          <div class="guideline-text">This is a safe place for those who wish to continue, and/or build on their abstinence from Crystal Meth.</div>
+        </div>
+      </li>
+
+      <li class="guideline-item">
+        <div class="guideline-num">2</div>
+        <div class="guideline-content">
+          <div class="guideline-label">Respect</div>
+          <div class="guideline-text">SOS respects all identities and recovery journeys. SOS is a closed group for gay, queer, bisexual men, trans-masculine/men, and nonbinary/genderfluid AMAB individuals. There are many tools &amp; options that help people reach their goals; all ideas are welcome &amp; will be supported.</div>
+        </div>
+      </li>
+
+      <li class="guideline-item">
+        <div class="guideline-num">3</div>
+        <div class="guideline-content">
+          <div class="guideline-label">Attendance</div>
+          <div class="guideline-text">This is a drop-in group; regular attendance is not required, although highly recommended.</div>
+        </div>
+      </li>
+
+      <li class="guideline-item">
+        <div class="guideline-num">4</div>
+        <div class="guideline-content">
+          <div class="guideline-label">Punctuality</div>
+          <div class="guideline-text">If you are going to be late, please enter quietly, and wait until an appropriate time to enter discussion.</div>
+        </div>
+      </li>
+
+      <li class="guideline-item">
+        <div class="guideline-num">5</div>
+        <div class="guideline-content">
+          <div class="guideline-label">Listening &amp; Sharing</div>
+          <div class="guideline-text">An open &amp; authentic atmosphere is provided to encourage members to share their truth at the level that is appropriate for them. Allow others to share their feelings and/or experiences freely. Learn to listen so others can learn. Comments are allowed after the speaker is finished, and should be made in the form of &ldquo;I statements.&rdquo;</div>
+        </div>
+      </li>
+
+      <li class="guideline-item">
+        <div class="guideline-num">6</div>
+        <div class="guideline-content">
+          <div class="guideline-label">Relapse</div>
+          <div class="guideline-text">You are encouraged to talk about any relapse in group for the benefit of learning and growth. You will not be shamed or thrown out of group if you relapse.</div>
+        </div>
+      </li>
+
+      <li class="guideline-item">
+        <div class="guideline-num">7</div>
+        <div class="guideline-content">
+          <div class="guideline-label">Discussions of Sexuality</div>
+          <div class="guideline-text">Discussions revolve around crystal use, sexual behaviors, struggling with sexual compulsion, and/or sex as a trigger for crystal use. This is not a pick-up joint! Please respect each other&rsquo;s sexual boundaries &amp; feel free to discuss this with the facilitator or moderator.</div>
+        </div>
+      </li>
+
+      <li class="guideline-item">
+        <div class="guideline-num">8</div>
+        <div class="guideline-content">
+          <div class="guideline-label">Confidentiality</div>
+          <div class="guideline-text">What is said in group stays in group! All discussion Must Remain Strictly Confidential. It is permissible to share your own experience of the group. If you have an unexpected run-in with other members outside of group, please respect each other&rsquo;s confidentiality.</div>
+        </div>
+      </li>
+
+      <li class="guideline-item">
+        <div class="guideline-num">9</div>
+        <div class="guideline-content">
+          <div class="guideline-label">Non-Discrimination</div>
+          <div class="guideline-text">Discrimination of any kind is not allowed in SOS meetings. No homophobia, no transphobia, no racism, no ageism, no ableism, or other discriminatory language or behavior is allowed.</div>
+        </div>
+      </li>
+
+      <li class="guideline-item">
+        <div class="guideline-num">10</div>
+        <div class="guideline-content">
+          <div class="guideline-label">Individual Responsibility</div>
+          <div class="guideline-text">Please be mindful of the energy you bring into the room. We all have a shared responsibility of promoting safety, health and growth in our meetings.</div>
+        </div>
+      </li>
+
+    </ol>
+
+    <div class="doc-notice">
+      <span class="doc-notice__icon">📵</span>
+      <p class="doc-notice__text">Please silence cell phones and other electronic devices during the meeting.</p>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="doc-footer">
+    <span><strong>Strength Over Speed (SOS)</strong> &mdash; Seattle, Capitol Hill</span>
+    <span>Peer Seattle &bull; 1520 Bellevue Ave Suite 100 &bull; <a href="mailto:sosonlinemeetings@gmail.com">sosonlinemeetings@gmail.com</a></span>
+  </footer>
+
+</body>
+</html>
