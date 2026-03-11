@@ -74,7 +74,7 @@ li { margin-bottom: 0.4rem; }
 }
 
 .section {
-  padding: 3.5rem 0;
+  padding: 4rem 0;
 }
 .section--alt {
   background: var(--white);
@@ -172,7 +172,7 @@ li { margin-bottom: 0.4rem; }
 .hero {
   background: linear-gradient(135deg, var(--purple-deep) 0%, #6B3FA0 60%, var(--teal-dark) 100%);
   color: white;
-  padding: 5rem 1.5rem 4rem;
+  padding: 7rem 1.5rem 6rem;
   text-align: center;
   position: relative;
   overflow: hidden;
