@@ -105,37 +105,37 @@
           <tr>
             <td>Sunday</td>
             <td>10:00 AM</td>
-            <td><span class="loc-full">Peer Seattle &mdash; 1520 Bellevue Ave, Ste 100, Seattle, WA</span><a class="loc-map" href="https://maps.google.com/?q=1520+Bellevue+Ave+Suite+100+Seattle+WA" target="_blank" rel="noopener">&#128205; View Map</a></td>
+            <td><span class="loc-full">Peer Seattle &mdash; 1520 Bellevue Ave, Ste 100, Seattle, WA</span><a class="loc-map" href="https://maps.google.com/?q=1520+Bellevue+Ave+Suite+100+Seattle+WA" target="_blank" rel="noopener">&#128205; Map</a></td>
             <td><span class="badge badge--inperson">In Person</span></td>
           </tr>
           <tr>
             <td>Monday</td>
             <td>2:00 PM</td>
-            <td><span class="loc-full">Peer Seattle &mdash; 1520 Bellevue Ave, Ste 100, Seattle, WA</span><a class="loc-map" href="https://maps.google.com/?q=1520+Bellevue+Ave+Suite+100+Seattle+WA" target="_blank" rel="noopener">&#128205; View Map</a></td>
+            <td><span class="loc-full">Peer Seattle &mdash; 1520 Bellevue Ave, Ste 100, Seattle, WA</span><a class="loc-map" href="https://maps.google.com/?q=1520+Bellevue+Ave+Suite+100+Seattle+WA" target="_blank" rel="noopener">&#128205; Map</a></td>
             <td><span class="badge badge--inperson">In Person</span></td>
           </tr>
           <tr>
             <td>Tuesday</td>
             <td>6:00 PM</td>
-            <td><span class="loc-full">Peer Seattle &mdash; 1520 Bellevue Ave, Ste 100, Seattle, WA</span><a class="loc-map" href="https://maps.google.com/?q=1520+Bellevue+Ave+Suite+100+Seattle+WA" target="_blank" rel="noopener">&#128205; View Map</a></td>
+            <td><span class="loc-full">Peer Seattle &mdash; 1520 Bellevue Ave, Ste 100, Seattle, WA</span><a class="loc-map" href="https://maps.google.com/?q=1520+Bellevue+Ave+Suite+100+Seattle+WA" target="_blank" rel="noopener">&#128205; Map</a></td>
             <td><span class="badge badge--inperson">In Person</span></td>
           </tr>
           <tr>
             <td>Wednesday</td>
             <td>TBA</td>
-            <td><span class="loc-full">Online via Zoom &mdash; contact us for link</span><span class="loc-map">Online via Zoom</span></td>
+            <td><span class="loc-full">Online via Zoom &mdash; contact us for link</span><span class="loc-map">Zoom</span></td>
             <td><span class="badge badge--online">Online</span></td>
           </tr>
           <tr>
             <td>Friday</td>
             <td>6:00 PM</td>
-            <td><span class="loc-full">Peer Seattle &mdash; 1520 Bellevue Ave, Ste 100, Seattle, WA</span><a class="loc-map" href="https://maps.google.com/?q=1520+Bellevue+Ave+Suite+100+Seattle+WA" target="_blank" rel="noopener">&#128205; View Map</a></td>
+            <td><span class="loc-full">Peer Seattle &mdash; 1520 Bellevue Ave, Ste 100, Seattle, WA</span><a class="loc-map" href="https://maps.google.com/?q=1520+Bellevue+Ave+Suite+100+Seattle+WA" target="_blank" rel="noopener">&#128205; Map</a></td>
             <td><span class="badge badge--inperson">In Person</span></td>
           </tr>
           <tr>
             <td>Saturday</td>
             <td>TBA</td>
-            <td><span class="loc-full">Online via Zoom &mdash; contact us for link</span><span class="loc-map">Online via Zoom</span></td>
+            <td><span class="loc-full">Online via Zoom &mdash; contact us for link</span><span class="loc-map">Zoom</span></td>
             <td><span class="badge badge--online">Online</span></td>
           </tr>
         </tbody>
@@ -357,8 +357,8 @@
           ? '<span class="badge badge--online">Online</span>'
           : '<span class="badge badge--inperson">In Person</span>';
         var locCell = e.online
-          ? '<span class="loc-full">' + e.location + '</span><span class="loc-map">Online via Zoom</span>'
-          : '<span class="loc-full">' + e.location + '</span><a class="loc-map" href="' + MAP_URL + '" target="_blank" rel="noopener">&#128205; View Map</a>';
+          ? '<span class="loc-full">' + e.location + '</span><span class="loc-map">Zoom</span>'
+          : '<span class="loc-full">' + e.location + '</span><a class="loc-map" href="' + MAP_URL + '" target="_blank" rel="noopener">&#128205; Map</a>';
         return '<tr>'
              + '<td>' + e.dayName + '</td>'
              + '<td>' + e.timeStr + '</td>'
