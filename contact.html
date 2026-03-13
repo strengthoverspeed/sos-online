@@ -45,7 +45,7 @@
         <p>Fill out the form below and we&rsquo;ll get back to you as soon as we can.</p>
       </div>
 
-      <form id="contact-form" action="https://formspree.io/f/mvzwqzge" method="POST" style="margin-top: 1.5rem; display: flex; flex-direction: column; gap: 1.25rem;">
+      <form id="contact-form" data-endpoint="https://formspree.io/f/mvzwqzge" style="margin-top: 1.5rem; display: flex; flex-direction: column; gap: 1.25rem;">
         <div>
           <label for="contact-name" style="display: block; font-weight: 600; margin-bottom: 0.4rem; color: var(--text-dark);">Your name</label>
           <input id="contact-name" type="text" name="name" required placeholder="Your name"
@@ -121,6 +121,7 @@
     var submitBtn = document.getElementById('contact-submit');
     var successMsg = document.getElementById('contact-success');
     var errorMsg = document.getElementById('contact-error');
+    var endpoint = form.dataset.endpoint;
 
     form.addEventListener('submit', function(e) {
       e.preventDefault();
@@ -128,7 +129,7 @@
       submitBtn.textContent = 'Sending\u2026';
       errorMsg.style.display = 'none';
 
-      fetch(form.action, {
+      fetch(endpoint, {
         method: 'POST',
         body: new FormData(form),
         headers: { 'Accept': 'application/json' }
@@ -137,14 +138,22 @@
           form.style.display = 'none';
           successMsg.style.display = 'block';
         } else {
-          submitBtn.disabled = false;
-          submitBtn.textContent = 'Send Message';
-          errorMsg.style.display = 'block';
+          return res.json().then(function(data) {
+            var msg = 'Something went wrong \u2014 please try again in a moment.';
+            if (data && data.errors) {
+              msg = data.errors.map(function(err) { return err.message; }).join(', ');
+            }
+            errorMsg.textContent = msg;
+            errorMsg.style.display = 'block';
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Send Message';
+          });
         }
       }).catch(function() {
+        errorMsg.textContent = 'Something went wrong \u2014 please try again in a moment.';
+        errorMsg.style.display = 'block';
         submitBtn.disabled = false;
         submitBtn.textContent = 'Send Message';
-        errorMsg.style.display = 'block';
       });
     });
   })();
