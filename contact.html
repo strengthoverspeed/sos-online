@@ -42,11 +42,29 @@
     <div style="max-width: 680px; margin: 0 auto;">
 
       <div class="callout callout--teal">
-        <p>Use the <strong>contact form button</strong> in the bottom-right corner of this page to send us a message. We&rsquo;ll get back to you as soon as we can.</p>
+        <p>Fill out the form below and we&rsquo;ll get back to you as soon as we can.</p>
       </div>
-      <p style="margin-top: 1.5rem; color: var(--text-mid);">
-        You can also reach us directly at <a href="mailto:sosonlinemeetings@gmail.com">sosonlinemeetings@gmail.com</a>.
-      </p>
+
+      <form action="https://formspree.io/f/mvzwqzge" method="POST" style="margin-top: 1.5rem; display: flex; flex-direction: column; gap: 1.25rem;">
+        <div>
+          <label for="contact-name" style="display: block; font-weight: 600; margin-bottom: 0.4rem; color: var(--text-dark);">Your name</label>
+          <input id="contact-name" type="text" name="name" required placeholder="Your name"
+            style="width: 100%; padding: 0.65rem 0.85rem; border: 1.5px solid #d1c4e9; border-radius: 8px; font-size: 1rem; font-family: inherit; color: var(--text-dark); outline: none;">
+        </div>
+        <div>
+          <label for="contact-email" style="display: block; font-weight: 600; margin-bottom: 0.4rem; color: var(--text-dark);">Your email</label>
+          <input id="contact-email" type="email" name="email" required placeholder="your@email.com"
+            style="width: 100%; padding: 0.65rem 0.85rem; border: 1.5px solid #d1c4e9; border-radius: 8px; font-size: 1rem; font-family: inherit; color: var(--text-dark); outline: none;">
+        </div>
+        <div>
+          <label for="contact-message" style="display: block; font-weight: 600; margin-bottom: 0.4rem; color: var(--text-dark);">Message</label>
+          <textarea id="contact-message" name="message" required placeholder="What&apos;s on your mind?" rows="6"
+            style="width: 100%; padding: 0.65rem 0.85rem; border: 1.5px solid #d1c4e9; border-radius: 8px; font-size: 1rem; font-family: inherit; color: var(--text-dark); resize: vertical; outline: none;"></textarea>
+        </div>
+        <div>
+          <button type="submit" class="btn--primary" style="padding: 0.75rem 2rem; font-size: 1rem; cursor: pointer; border: none; border-radius: 8px;">Send Message</button>
+        </div>
+      </form>
 
     </div>
   </div>
