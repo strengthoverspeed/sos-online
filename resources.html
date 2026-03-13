@@ -84,24 +84,24 @@
           <li>
             <span class="resource-name">Gay &amp; Sober</span>
             <span class="resource-desc">Online community and resources for LGBTQ+ people in recovery.</span>
-            <a href="https://www.gayandsober.org/" target="_blank" rel="noopener">gayandsober.org</a>
+            <a href="https://www.gayandsober.org/" target="_blank" rel="noopener">More Info</a>
           </li>
           <li>
             <span class="resource-name">SMART Recovery (Non-12 Step)</span>
             <span class="resource-desc">Science-based addiction recovery program as an alternative to 12-step.</span>
-            <a href="https://www.smartrecovery.org/" target="_blank" rel="noopener">smartrecovery.org</a>
+            <a href="https://www.smartrecovery.org/" target="_blank" rel="noopener">More Info</a>
           </li>
           <li>
             <span class="resource-name">Crystal Meth Anonymous</span>
-            <a href="http://www.crystalmeth.org/" target="_blank" rel="noopener">www.crystalmeth.org</a>
+            <a href="http://www.crystalmeth.org/" target="_blank" rel="noopener">More Info</a>
           </li>
           <li>
             <span class="resource-name">Alcoholics Anonymous (AA) &mdash; Seattle</span>
-            <a href="http://www.seattleaa.org/" target="_blank" rel="noopener">www.seattleaa.org</a>
+            <a href="http://www.seattleaa.org/" target="_blank" rel="noopener">More Info</a>
           </li>
           <li>
             <span class="resource-name">Narcotics Anonymous (NA) &mdash; Seattle</span>
-            <a href="http://www.seattlena.org/" target="_blank" rel="noopener">www.seattlena.org</a>
+            <a href="http://www.seattlena.org/" target="_blank" rel="noopener">More Info</a>
           </li>
         </ul>
       </div>
@@ -113,29 +113,29 @@
           <li>
             <span class="resource-name">Project Neon</span>
             <span class="resource-desc">Free one-on-one counseling, support groups, and health info for crystal users.</span>
-            <a href="https://www.gaycity.org/project-neon/" target="_blank" rel="noopener">gaycity.org/project-neon</a>
+            <a href="https://www.gaycity.org/project-neon/" target="_blank" rel="noopener">More Info</a>
           </li>
           <li>
             <span class="resource-name">Gay City: Resource Navigator</span>
             <span class="resource-desc">Comprehensive directory of LGBTQ+ affirming services in the Seattle area.</span>
-            <a href="https://www.gaycity.org/" target="_blank" rel="noopener">gaycity.org</a>
+            <a href="https://www.gaycity.org/" target="_blank" rel="noopener">More Info</a>
           </li>
           <li>
             <span class="resource-name">Community Based Research Centre (CBRC)</span>
             <span class="resource-desc">Research and publications on health issues affecting gay and bisexual men.</span>
-            <a href="https://www.cbrc.net/reports_and_publications" target="_blank" rel="noopener">cbrc.net/reports_and_publications</a>
+            <a href="https://www.cbrc.net/reports_and_publications" target="_blank" rel="noopener">More Info</a>
           </li>
           <li>
             <span class="resource-name">Entre Hermanos</span>
             <span class="resource-phone"><a href="tel:206-322-7700">206-322-7700</a></span>
             <span class="resource-desc">Support and resources for the Latino LGBTQ+ community.</span>
-            <a href="http://www.entrehermanos.org/" target="_blank" rel="noopener">www.entrehermanos.org</a>
+            <a href="http://www.entrehermanos.org/" target="_blank" rel="noopener">More Info</a>
           </li>
           <li>
             <span class="resource-name">POCAAN</span>
             <span class="resource-phone"><a href="tel:206-322-7061">206-322-7061</a></span>
             <span class="resource-desc">Community-based agency serving people of color.</span>
-            <a href="http://www.pocaan.org/" target="_blank" rel="noopener">www.pocaan.org</a>
+            <a href="http://www.pocaan.org/" target="_blank" rel="noopener">More Info</a>
           </li>
         </ul>
       </div>
@@ -148,7 +148,7 @@
             <span class="resource-name">Crisis Line (24 Hours)</span>
             <span class="resource-phone"><a href="tel:206-461-3222">206-461-3222</a></span>
             <span class="resource-desc">Confidential crisis support available any time, day or night.</span>
-            <a href="http://www.crisisclinic.org/" target="_blank" rel="noopener">www.crisisclinic.org</a>
+            <a href="http://www.crisisclinic.org/" target="_blank" rel="noopener">More Info</a>
           </li>
           <li>
             <span class="resource-name">Alcohol/Drug 24-Hour Help Line</span>
@@ -156,7 +156,7 @@
               <a href="tel:206-722-3700">206-722-3700</a> &bull;
               <a href="tel:1-800-562-1240">1-800-562-1240</a>
             </span>
-            <a href="http://www.adhl.org/" target="_blank" rel="noopener">www.adhl.org</a>
+            <a href="http://www.adhl.org/" target="_blank" rel="noopener">More Info</a>
           </li>
           <li>
             <span class="resource-name">988 Suicide &amp; Crisis Lifeline</span>
@@ -174,7 +174,7 @@
             <span class="resource-name">Gay City Health Project</span>
             <span class="resource-phone"><a href="tel:206-860-6969">206-860-6969</a></span>
             <span class="resource-desc">HIV and STI testing, prevention services, and community health programs for LGBTQ+ people.</span>
-            <a href="http://www.gaycity.org/" target="_blank" rel="noopener">www.gaycity.org</a>
+            <a href="http://www.gaycity.org/" target="_blank" rel="noopener">More Info</a>
           </li>
           <li>
             <span class="resource-name">HIV/STD Hotline</span>
@@ -315,8 +315,7 @@
       html += '<span class="resource-desc">' + escapeHtml(desc) + '</span>';
     }
     if (website) {
-      var display = website.replace(/^https?:\/\/(www\.)?/, '');
-      html += '<a href="' + escapeHtml(website) + '" target="_blank" rel="noopener">' + escapeHtml(display) + '</a>';
+      html += '<a href="' + escapeHtml(website) + '" target="_blank" rel="noopener">More Info</a>';
     }
 
     html += '</li>';
