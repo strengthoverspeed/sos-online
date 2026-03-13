@@ -47,7 +47,7 @@
       <p class="section-header__eyebrow">First Time?</p>
       <h2 class="section-header__title">What to expect at your first meeting</h2>
       <p class="section-header__desc">
-        <a href="site-assets/group-agreements.html" target="_blank" rel="noopener">Click here to review our Group Agreements</a>
+        <a href="site-assets/group-agreements.html" target="_blank" rel="noopener" style="color: var(--teal);">Click here to review our Group Agreements</a>
       </p>
     </div>
     <div class="grid-3">
@@ -106,37 +106,37 @@
           <tr>
             <td>Sunday</td>
             <td>10:00 AM</td>
-            <td>Peer Seattle &mdash; 1520 Bellevue Ave, Ste 100, Seattle, WA</td>
+            <td><span class="loc-full">Peer Seattle &mdash; 1520 Bellevue Ave, Ste 100, Seattle, WA</span><a class="loc-map" href="https://maps.google.com/?q=1520+Bellevue+Ave+Suite+100+Seattle+WA" target="_blank" rel="noopener">&#128205; View Map</a></td>
             <td><span class="badge badge--inperson">In Person</span></td>
           </tr>
           <tr>
             <td>Monday</td>
             <td>2:00 PM</td>
-            <td>Peer Seattle &mdash; 1520 Bellevue Ave, Ste 100, Seattle, WA</td>
+            <td><span class="loc-full">Peer Seattle &mdash; 1520 Bellevue Ave, Ste 100, Seattle, WA</span><a class="loc-map" href="https://maps.google.com/?q=1520+Bellevue+Ave+Suite+100+Seattle+WA" target="_blank" rel="noopener">&#128205; View Map</a></td>
             <td><span class="badge badge--inperson">In Person</span></td>
           </tr>
           <tr>
             <td>Tuesday</td>
             <td>6:00 PM</td>
-            <td>Peer Seattle &mdash; 1520 Bellevue Ave, Ste 100, Seattle, WA</td>
+            <td><span class="loc-full">Peer Seattle &mdash; 1520 Bellevue Ave, Ste 100, Seattle, WA</span><a class="loc-map" href="https://maps.google.com/?q=1520+Bellevue+Ave+Suite+100+Seattle+WA" target="_blank" rel="noopener">&#128205; View Map</a></td>
             <td><span class="badge badge--inperson">In Person</span></td>
           </tr>
           <tr>
             <td>Wednesday</td>
             <td>TBA</td>
-            <td>Online via Zoom &mdash; contact us for link</td>
+            <td><span class="loc-full">Online via Zoom &mdash; contact us for link</span><span class="loc-map">Online via Zoom</span></td>
             <td><span class="badge badge--online">Online</span></td>
           </tr>
           <tr>
             <td>Friday</td>
             <td>6:00 PM</td>
-            <td>Peer Seattle &mdash; 1520 Bellevue Ave, Ste 100, Seattle, WA</td>
+            <td><span class="loc-full">Peer Seattle &mdash; 1520 Bellevue Ave, Ste 100, Seattle, WA</span><a class="loc-map" href="https://maps.google.com/?q=1520+Bellevue+Ave+Suite+100+Seattle+WA" target="_blank" rel="noopener">&#128205; View Map</a></td>
             <td><span class="badge badge--inperson">In Person</span></td>
           </tr>
           <tr>
             <td>Saturday</td>
             <td>TBA</td>
-            <td>Online via Zoom &mdash; contact us for link</td>
+            <td><span class="loc-full">Online via Zoom &mdash; contact us for link</span><span class="loc-map">Online via Zoom</span></td>
             <td><span class="badge badge--online">Online</span></td>
           </tr>
         </tbody>
@@ -351,15 +351,19 @@
       entries.sort(function (a, b) { return a.dayIdx - b.dayIdx; });
 
       /* Build table rows */
+      var MAP_URL = 'https://maps.google.com/?q=1520+Bellevue+Ave+Suite+100+Seattle+WA';
       var html = entries.map(function (e) {
         var badge = e.online
           ? '<span class="badge badge--online">Online</span>'
           : '<span class="badge badge--inperson">In Person</span>';
+        var locCell = e.online
+          ? '<span class="loc-full">' + e.location + '</span><span class="loc-map">Online via Zoom</span>'
+          : '<span class="loc-full">' + e.location + '</span><a class="loc-map" href="' + MAP_URL + '" target="_blank" rel="noopener">&#128205; View Map</a>';
         return '<tr>'
-             + '<td>' + e.dayName   + '</td>'
-             + '<td>' + e.timeStr   + '</td>'
-             + '<td>' + e.location  + '</td>'
-             + '<td>' + badge       + '</td>'
+             + '<td>' + e.dayName + '</td>'
+             + '<td>' + e.timeStr + '</td>'
+             + '<td>' + locCell   + '</td>'
+             + '<td>' + badge     + '</td>'
              + '</tr>';
       }).join('');
 
