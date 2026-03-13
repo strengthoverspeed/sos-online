@@ -427,6 +427,13 @@ li { margin-bottom: 0.4rem; }
 .meetings-table--compact td {
   padding: 0.6rem 1.25rem;
 }
+.loc-map {
+  display: none;
+  color: var(--teal);
+  font-weight: 600;
+  text-decoration: none;
+}
+.loc-map:hover { text-decoration: underline; }
 .badge {
   display: inline-block;
   padding: 0.2rem 0.65rem;
@@ -617,6 +624,8 @@ li { margin-bottom: 0.4rem; }
   .meetings-table { font-size: 0.88rem; }
   .meetings-table thead th,
   .meetings-table td { padding: 0.75rem 1rem; }
+  .loc-full { display: none; }
+  .loc-map { display: inline; }
 }
 
 @media (max-width: 480px) {
