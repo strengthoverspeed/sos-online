@@ -143,10 +143,7 @@
       </table>
     </div>
 
-    <!-- Status line: updated by JS when calendar loads -->
-    <p id="cal-status" style="margin-top:0.75rem; font-size:0.8rem; color:var(--text-light); text-align:right;"></p>
-
-    <div class="callout callout--teal" style="margin-top: 1.25rem;">
+<div class="callout callout--teal" style="margin-top: 1.25rem;">
       <p>
         <strong>Online meeting links:</strong> For Wednesday and Saturday Zoom links,
         <a href="contact.html">send us a message</a> and we&rsquo;ll get them to you.
@@ -260,128 +257,6 @@
   </div>
 </footer>
 
-
-<script>
-/*
- * Google Calendar → Meetings Table
- * ---------------------------------
- * SETUP: Replace YOUR_GOOGLE_API_KEY below with a real key.
- *
- * Steps to get a free API key:
- *   1. Go to https://console.cloud.google.com/
- *   2. Create a project (or select an existing one)
- *   3. Enable the "Google Calendar API" for that project
- *   4. Go to Credentials → Create Credentials → API Key
- *   5. (Recommended) Restrict the key to the Calendar API and your domain
- *   6. Paste the key below in place of YOUR_GOOGLE_API_KEY
- *
- * The calendar must be set to "Public" in Google Calendar settings.
- */
-
-(function () {
-  var API_KEY     = 'AIzaSyCM0O6eJMzAb8NsmuOiyXpvOOpAqM-ES6I';
-  var CALENDAR_ID = 'ff8ca5c2afc3c79a7d30bf416b943bfad8c051a93214634a1d60992de8f42cd5@group.calendar.google.com';
-  var DAY_NAMES   = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-
-  /* Don't run if no real key has been set */
-  if (!API_KEY || API_KEY === 'YOUR_GOOGLE_API_KEY') return;
-
-  /* Fetch the next 28 days of events */
-  var now    = new Date();
-  var cutoff = new Date(now.getTime() + 28 * 24 * 60 * 60 * 1000);
-  var url    = 'https://www.googleapis.com/calendar/v3/calendars/'
-             + encodeURIComponent(CALENDAR_ID)
-             + '/events?key=' + API_KEY
-             + '&singleEvents=true'
-             + '&orderBy=startTime'
-             + '&timeMin=' + now.toISOString()
-             + '&timeMax=' + cutoff.toISOString()
-             + '&maxResults=50';
-
-  fetch(url)
-    .then(function (r) { return r.json(); })
-    .then(function (data) {
-      if (!data.items || !data.items.length) return;
-
-      /* Deduplicate recurring events by day-of-week + time key */
-      var seen    = {};
-      var entries = [];
-
-      data.items.forEach(function (ev) {
-        var start = ev.start && (ev.start.dateTime || ev.start.date);
-        if (!start) return;
-
-        var d       = new Date(start);
-        var dayIdx  = d.getDay();           /* 0 = Sunday */
-        var hours   = d.getHours();
-        var mins    = d.getMinutes();
-        var ampm    = hours >= 12 ? 'PM' : 'AM';
-        var h12     = hours % 12 || 12;
-        var timeStr = h12 + (mins ? ':' + String(mins).padStart(2,'0') : ':00') + ' ' + ampm;
-        var key     = dayIdx + '|' + timeStr;
-
-        if (seen[key]) return;
-        seen[key] = true;
-
-        var location = (ev.location || '').trim();
-        var lcLoc    = location.toLowerCase();
-        var isOnline = !location
-                     || lcLoc.indexOf('zoom')    !== -1
-                     || lcLoc.indexOf('online')  !== -1
-                     || lcLoc.indexOf('http')    !== -1
-                     || lcLoc.indexOf('virtual') !== -1;
-
-        if (!isOnline && !location) {
-          location = 'Online via Zoom — contact us for link';
-          isOnline = true;
-        }
-
-        entries.push({
-          dayIdx:   dayIdx,
-          dayName:  DAY_NAMES[dayIdx],
-          timeStr:  timeStr,
-          location: location || 'Online via Zoom — contact us for link',
-          online:   isOnline
-        });
-      });
-
-      if (!entries.length) return;
-
-      /* Sort Sunday → Saturday */
-      entries.sort(function (a, b) { return a.dayIdx - b.dayIdx; });
-
-      /* Build table rows */
-      var MAP_URL = 'https://maps.google.com/?q=1520+Bellevue+Ave+Suite+100+Seattle+WA';
-      var html = entries.map(function (e) {
-        var badge = e.online
-          ? '<span class="badge badge--online">Online</span>'
-          : '<span class="badge badge--inperson">In Person</span>';
-        var locCell = e.online
-          ? '<span class="loc-full">Online via Zoom &mdash; <a href="contact.html">contact us for link</a></span><span class="loc-map">Zoom</span>'
-          : '<a class="loc-full" href="' + MAP_URL + '" target="_blank" rel="noopener">' + e.location + '</a><a class="loc-map" href="' + MAP_URL + '" target="_blank" rel="noopener">&#128205; Map</a>';
-        return '<tr>'
-             + '<td>' + e.dayName + '</td>'
-             + '<td>' + e.timeStr + '</td>'
-             + '<td>' + locCell   + '</td>'
-             + '<td>' + badge     + '</td>'
-             + '</tr>';
-      }).join('');
-
-      document.getElementById('meeting-rows').innerHTML = html;
-
-      /* Update status line */
-      var status = document.getElementById('cal-status');
-      if (status) {
-        var now2 = new Date();
-        status.textContent = 'Schedule updated from Google Calendar · '
-          + now2.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-      }
-    })
-    .catch(function () {
-      /* Silently fall back to static rows already in the HTML */
-    });
-}());
-</script>
 
 </body>
 </html>

@@ -74,8 +74,7 @@
       </p>
     </div>
 
-    <!-- Resources are loaded dynamically from Google Sheets. Static cards below are the fallback. -->
-    <div class="grid-4" id="resources-grid">
+    <div class="grid-4">
 
       <!-- Support Groups -->
       <div class="card">
@@ -191,7 +190,6 @@
 
     </div>
 
-    <p id="resources-status" style="margin-top: 0.75rem; font-size: 0.8rem; color: var(--text-light); text-align: right;"></p>
   </div>
 </section>
 
@@ -252,121 +250,6 @@
   </div>
 </footer>
 
-
-<script>
-/*
- * Google Sheets (published CSV) → Resources Grid
- * ------------------------------------------------
- * Sheet column order (Row 1 = headers, ignored):
- *   A: Category  B: Name  C: Phone  D: Email  E: Website  F: Description
- *
- * Rows are grouped by the Category column into separate cards.
- * To update resources, just edit the Google Sheet — no code changes needed.
- * Falls back silently to the static HTML below if the fetch fails.
- */
-
-(function () {
-  var CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRPaKZ-CpAKxrCsuOnUsFNUZA6ANUuVV1JqmfEYC2q2sqJNWuNMEo1vW_L2YgZ3MJVM0xspc-f0rQVz/pub?output=csv';
-
-  function escapeHtml(str) {
-    return String(str)
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;');
-  }
-
-  /* RFC-4180 CSV parser — handles quoted fields containing commas and newlines */
-  function parseCsv(text) {
-    var rows = [], row = [], cell = '', inQuote = false;
-    for (var i = 0; i < text.length; i++) {
-      var ch = text[i];
-      if (inQuote) {
-        if (ch === '"' && text[i + 1] === '"') { cell += '"'; i++; }
-        else if (ch === '"')                   { inQuote = false; }
-        else                                   { cell += ch; }
-      } else {
-        if      (ch === '"')  { inQuote = true; }
-        else if (ch === ',')  { row.push(cell); cell = ''; }
-        else if (ch === '\n') { row.push(cell); rows.push(row); row = []; cell = ''; }
-        else if (ch !== '\r') { cell += ch; }
-      }
-    }
-    row.push(cell);
-    if (row.some(function (c) { return c; })) rows.push(row);
-    return rows;
-  }
-
-  function buildItem(row) {
-    var name    = (row[1] || '').trim();
-    var phone   = (row[2] || '').trim();
-    var email   = (row[3] || '').trim();
-    var website = (row[4] || '').trim();
-    var desc    = (row[5] || '').trim();
-
-    if (!name) return '';
-
-    var html = '<li>';
-    html += '<span class="resource-name">' + escapeHtml(name) + '</span>';
-
-    if (phone) {
-      var telHref = 'tel:' + phone.replace(/[^0-9+]/g, '');
-      html += '<span class="resource-phone"><a href="' + telHref + '">' + escapeHtml(phone) + '</a></span>';
-    }
-    if (email) {
-      html += '<span class="resource-email"><a href="mailto:' + escapeHtml(email) + '">' + escapeHtml(email) + '</a></span>';
-    }
-    if (desc) {
-      html += '<span class="resource-desc">' + escapeHtml(desc) + '</span>';
-    }
-    if (website) {
-      html += '<a href="' + escapeHtml(website) + '" target="_blank" rel="noopener">More Info</a>';
-    }
-
-    html += '</li>';
-    return html;
-  }
-
-  fetch(CSV_URL)
-    .then(function (r) { return r.text(); })
-    .then(function (csvText) {
-      var rows = parseCsv(csvText);
-      if (rows.length < 2) return; // header only or empty
-
-      /* Group data rows (skip row 0 header) by Category (col A) */
-      var categories = {}, order = [];
-      for (var i = 1; i < rows.length; i++) {
-        var cat = (rows[i][0] || '').trim();
-        if (!cat) continue;
-        if (!categories[cat]) { categories[cat] = []; order.push(cat); }
-        categories[cat].push(rows[i]);
-      }
-      if (!order.length) return;
-
-      var gridHtml = order.map(function (cat) {
-        var items = categories[cat].map(buildItem).join('');
-        return items
-          ? '<div class="card"><p class="resource-section__title">' + escapeHtml(cat) + '</p>'
-            + '<ul class="resource-list">' + items + '</ul></div>'
-          : '';
-      }).join('');
-
-      if (!gridHtml) return;
-
-      document.getElementById('resources-grid').innerHTML = gridHtml;
-
-      var status = document.getElementById('resources-status');
-      if (status) {
-        var now = new Date();
-        status.textContent = 'Resources updated from Google Sheets \u00b7 '
-          + now.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-      }
-    })
-    .catch(function () {
-      /* Silently fall back to the static resource cards already in the HTML */
-    });
-}());
-</script>
 
 </body>
 </html>
