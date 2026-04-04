@@ -48,12 +48,14 @@ All files live at the repository root — there are no subdirectories.
 
 ## CSS Conventions
 
-- **CSS custom properties** (variables) defined in `:root` for theming — always use these, never hardcode colors:
-  - `--purple-deep` (#4A2080), `--purple-mid` (#7B4BBF), `--purple-light` (#E8DEFF), `--purple-pale` (#F5F0FF)
-  - `--teal` (#1A9E9E), `--teal-dark` (#147070)
-  - `--pink` (#D4358E)
-  - `--text-dark`, `--text-mid`, `--text-light`
-  - `--shadow-md`, etc.
+- **CSS custom properties** (variables) defined in `:root` for theming — always use these, never hardcode colors. Five color families derived from the logo's terracotta (`#C8522A`):
+  - **Terracotta (primary):** `--terra-deep` (#6E2510), `--terra-mid` (#C8522A), `--terra-light` (#F2CDB8), `--terra-pale` (#FBF0EA)
+  - **Sage Green (support/growth accent):** `--sage` (#4A8C6A), `--sage-dark` (#2D6B4A), `--sage-light` (#C8E8D8), `--sage-pale` (#EAF5EF)
+  - **Amber/Gold (warmth highlight):** `--amber` (#C8880A), `--amber-dark` (#8C5E04), `--amber-light` (#FDEFC8), `--amber-pale` (#FDF8EC)
+  - **Slate Blue (trust/calm, crisis resources):** `--slate` (#3D6080), `--slate-dark` (#264A65), `--slate-light` (#C8DDEF), `--slate-pale` (#EAF2F8)
+  - **Burgundy (depth, pull quotes):** `--burg` (#7A1E42), `--burg-mid` (#A83060), `--burg-light` (#F0C8D8), `--burg-pale` (#FBF0F4)
+  - **Neutrals:** `--text-dark`, `--text-mid`, `--text-light`, `--bg`, `--border`, `--nav-bg`, `--footer-bg`
+  - **Shadows:** `--shadow-sm`, `--shadow-md`, `--shadow-lg`
 - **Responsive design** — mobile-first with breakpoints at `768px` and `480px`
 - **Utility classes:** `.mt-1`, `.mt-2`, `.mb-2`, `.text-center`
 - **Global:** `box-sizing: border-box`, `scroll-behavior: smooth`
@@ -66,7 +68,7 @@ All files live at the repository root — there are no subdirectories.
 | Hero section | `.hero` | Top of each page, gradient background |
 | Content card | `.card`, `.card__icon`, `.card__body` | Feature/info cards |
 | Grid layout | `.grid-2`, `.grid-3` | 2 or 3 column responsive grid |
-| Callout box | `.callout`, `.callout--teal`, `.callout--purple` | Highlighted info blocks |
+| Callout box | `.callout`, `.callout--teal`, `.callout--purple`, `.callout--amber`, `.callout--burgundy` | Highlighted info blocks |
 | Quote block | `.quote-block` | Pull quotes with gradient background |
 | Badge | `.badge`, `.badge--online`, `.badge--inperson` | Meeting type labels |
 | Buttons | `.btn--primary`, `.btn--outline`, `.btn--purple` | CTA buttons |

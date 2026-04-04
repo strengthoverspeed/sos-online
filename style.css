@@ -6,25 +6,59 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
 
 /* --- CSS Variables --- */
+/*
+   Five-color palette derived from the SOS logo (terracotta #C8522A):
+   1. Terracotta  — primary brand, CTAs, headings, nav/footer
+   2. Sage Green  — growth/support accent, primary buttons, resource labels
+   3. Amber/Gold  — warmth highlight, pills, badge tints
+   4. Slate Blue  — trust/calm, crisis/resource callouts, links
+   5. Burgundy    — depth, pull quotes, special callouts
+*/
 :root {
-  --purple-deep:   #4A2080;
-  --purple-mid:    #7B4BBF;
-  --purple-light:  #E8DEFF;
-  --purple-pale:   #F5F0FF;
-  --teal:          #1A9E9E;
-  --teal-dark:     #147070;
-  --pink:          #D4358E;
-  --text-dark:     #1A1A2E;
-  --text-mid:      #4A4A6A;
-  --text-light:    #767698;
-  --bg:            #FAFAF8;
+  /* Terracotta (logo color) */
+  --terra-deep:    #6E2510;
+  --terra-mid:     #C8522A;
+  --terra-light:   #F2CDB8;
+  --terra-pale:    #FBF0EA;
+
+  /* Sage Green */
+  --sage:          #4A8C6A;
+  --sage-dark:     #2D6B4A;
+  --sage-light:    #C8E8D8;
+  --sage-pale:     #EAF5EF;
+
+  /* Amber / Warm Gold */
+  --amber:         #C8880A;
+  --amber-dark:    #8C5E04;
+  --amber-light:   #FDEFC8;
+  --amber-pale:    #FDF8EC;
+
+  /* Slate Blue */
+  --slate:         #3D6080;
+  --slate-dark:    #264A65;
+  --slate-light:   #C8DDEF;
+  --slate-pale:    #EAF2F8;
+
+  /* Burgundy */
+  --burg:          #7A1E42;
+  --burg-mid:      #A83060;
+  --burg-light:    #F0C8D8;
+  --burg-pale:     #FBF0F4;
+
+  /* Neutrals — warm-tinted */
+  --text-dark:     #2C1810;
+  --text-mid:      #5C3D30;
+  --text-light:    #8C6858;
+  --bg:            #FDFAF7;
   --white:         #FFFFFF;
-  --border:        #E0D8F0;
-  --nav-bg:        #3D1A6F;
-  --footer-bg:     #240F50;
-  --shadow-sm:     0 2px 8px rgba(74, 32, 128, 0.08);
-  --shadow-md:     0 4px 20px rgba(74, 32, 128, 0.12);
-  --shadow-lg:     0 8px 40px rgba(74, 32, 128, 0.18);
+  --border:        #EAD8CE;
+
+  /* Chrome */
+  --nav-bg:        #5C2010;
+  --footer-bg:     #3A1408;
+  --shadow-sm:     0 2px 8px rgba(200, 82, 42, 0.08);
+  --shadow-md:     0 4px 20px rgba(200, 82, 42, 0.12);
+  --shadow-lg:     0 8px 40px rgba(200, 82, 42, 0.18);
   --radius:        12px;
   --radius-sm:     8px;
   --transition:    all 0.25s ease;
@@ -45,14 +79,14 @@ body {
 
 img { max-width: 100%; display: block; }
 
-a { color: var(--purple-mid); text-decoration: none; transition: var(--transition); }
-a:hover { color: var(--teal); }
+a { color: var(--terra-mid); text-decoration: none; transition: var(--transition); }
+a:hover { color: var(--slate); }
 
 /* --- Typography --- */
 h1, h2, h3, h4 {
   font-family: 'Playfair Display', Georgia, serif;
   line-height: 1.25;
-  color: var(--purple-deep);
+  color: var(--terra-deep);
 }
 h1 { font-size: clamp(2rem, 5vw, 3.2rem); }
 h2 { font-size: clamp(1.6rem, 3.5vw, 2.4rem); }
@@ -80,7 +114,7 @@ li { margin-bottom: 0.4rem; }
   background: var(--white);
 }
 .section--tinted {
-  background: var(--purple-pale);
+  background: var(--terra-pale);
 }
 
 /* --- Navigation --- */
@@ -169,8 +203,9 @@ li { margin-bottom: 0.4rem; }
 }
 
 /* --- Hero --- */
+/* Gradient sweeps terracotta → amber mid-tone → slate deep */
 .hero {
-  background: linear-gradient(135deg, var(--purple-deep) 0%, #6B3FA0 60%, var(--teal-dark) 100%);
+  background: linear-gradient(135deg, var(--terra-deep) 0%, #A83D1E 45%, var(--slate-dark) 100%);
   color: white;
   padding: 7rem 1.5rem 6rem;
   text-align: center;
@@ -200,9 +235,10 @@ li { margin-bottom: 0.4rem; }
   margin-bottom: 1rem;
   position: relative;
 }
+/* Sage green highlight in hero title */
 .hero__title em {
   font-style: normal;
-  color: #A8EDEA;
+  color: #A8E6C8;
 }
 .hero__tagline {
   font-size: clamp(1rem, 2.5vw, 1.25rem);
@@ -212,8 +248,9 @@ li { margin-bottom: 0.4rem; }
   line-height: 1.65;
   position: relative;
 }
+/* Amber highlight in hero tagline */
 .hero__tagline strong {
-  color: #FDE8D0;
+  color: #FFE0A8;
 }
 .hero__cta-group {
   display: flex;
@@ -235,15 +272,16 @@ li { margin-bottom: 0.4rem; }
   transition: var(--transition);
   white-space: nowrap;
 }
+/* Primary CTA = sage green */
 .btn--primary {
-  background: var(--teal);
+  background: var(--sage);
   color: #FFFFFF;
-  box-shadow: 0 4px 15px rgba(26,158,158,0.4);
+  box-shadow: 0 4px 15px rgba(74, 140, 106, 0.4);
 }
 .btn--primary:hover {
-  background: var(--teal-dark);
+  background: var(--sage-dark);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(26,158,158,0.5);
+  box-shadow: 0 6px 20px rgba(74, 140, 106, 0.5);
   color: #FFFFFF;
 }
 .btn--outline {
@@ -257,13 +295,14 @@ li { margin-bottom: 0.4rem; }
   color: #FFFFFF;
   transform: translateY(-2px);
 }
+/* Secondary CTA = terracotta */
 .btn--purple {
-  background: var(--purple-deep);
+  background: var(--terra-mid);
   color: #FFFFFF;
   box-shadow: var(--shadow-sm);
 }
 .btn--purple:hover {
-  background: var(--purple-mid);
+  background: var(--terra-deep);
   transform: translateY(-2px);
   color: #FFFFFF;
 }
@@ -286,7 +325,7 @@ li { margin-bottom: 0.4rem; }
 .card__icon {
   width: 52px;
   height: 52px;
-  background: var(--purple-pale);
+  background: var(--terra-pale);
   border-radius: 14px;
   display: flex;
   align-items: center;
@@ -298,7 +337,7 @@ li { margin-bottom: 0.4rem; }
   font-family: 'Inter', sans-serif;
   font-weight: 700;
   font-size: 1.05rem;
-  color: var(--purple-deep);
+  color: var(--terra-deep);
   margin-bottom: 0.6rem;
 }
 .card__body {
@@ -332,12 +371,13 @@ li { margin-bottom: 0.4rem; }
   max-width: 680px;
   margin: 0 auto 2.5rem;
 }
+/* Eyebrow label = amber gold */
 .section-header__eyebrow {
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--teal);
+  color: var(--amber);
   margin-bottom: 0.75rem;
 }
 .section-header__title {
@@ -349,8 +389,9 @@ li { margin-bottom: 0.4rem; }
 }
 
 /* --- Page Hero (inner pages) --- */
+/* Terracotta gradient for interior pages */
 .page-hero {
-  background: linear-gradient(135deg, var(--purple-deep) 0%, #7B4BBF 100%);
+  background: linear-gradient(135deg, var(--terra-deep) 0%, var(--terra-mid) 100%);
   padding: 3rem 1.5rem 2.5rem;
   text-align: center;
   color: white;
@@ -367,8 +408,9 @@ li { margin-bottom: 0.4rem; }
 }
 
 /* --- Quote Block --- */
+/* Burgundy gradient — distinct from all other sections */
 .quote-block {
-  background: linear-gradient(135deg, var(--purple-deep), var(--purple-mid));
+  background: linear-gradient(135deg, var(--burg), var(--burg-mid));
   color: white;
   padding: 2.75rem 2rem;
   text-align: center;
@@ -400,7 +442,7 @@ li { margin-bottom: 0.4rem; }
   box-shadow: var(--shadow-md);
 }
 .meetings-table thead {
-  background: var(--purple-deep);
+  background: var(--terra-deep);
   color: white;
 }
 .meetings-table thead th {
@@ -418,7 +460,7 @@ li { margin-bottom: 0.4rem; }
   transition: var(--transition);
 }
 .meetings-table tbody tr:last-child { border-bottom: none; }
-.meetings-table tbody tr:hover { background: var(--purple-pale); }
+.meetings-table tbody tr:hover { background: var(--terra-pale); }
 .meetings-table td {
   padding: 0.75rem 1.25rem;
   font-size: 0.95rem;
@@ -427,7 +469,7 @@ li { margin-bottom: 0.4rem; }
 }
 .meetings-table td:first-child {
   font-weight: 600;
-  color: var(--purple-deep);
+  color: var(--terra-deep);
 }
 .meetings-table--compact thead th {
   padding: 0.6rem 1.25rem;
@@ -435,9 +477,10 @@ li { margin-bottom: 0.4rem; }
 .meetings-table--compact td {
   padding: 0.6rem 1.25rem;
 }
+/* Map link = slate blue */
 .loc-map {
   display: none;
-  color: var(--teal);
+  color: var(--slate);
   font-weight: 600;
   text-decoration: none;
 }
@@ -451,24 +494,27 @@ li { margin-bottom: 0.4rem; }
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
+/* Online badge = slate */
 .badge--online {
-  background: #D0F7F0;
-  color: var(--teal-dark);
+  background: var(--slate-light);
+  color: var(--slate-dark);
 }
+/* In-person badge = terracotta */
 .badge--inperson {
-  background: var(--purple-light);
-  color: var(--purple-deep);
+  background: var(--terra-light);
+  color: var(--terra-deep);
 }
 
 /* --- Resource Cards --- */
+/* Resource section headings = sage */
 .resource-section__title {
   font-family: 'Inter', sans-serif;
   font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--teal-dark);
-  border-bottom: 2px solid var(--teal);
+  color: var(--sage-dark);
+  border-bottom: 2px solid var(--sage);
   padding-bottom: 0.5rem;
   margin-bottom: 1.25rem;
 }
@@ -490,9 +536,10 @@ li { margin-bottom: 0.4rem; }
   color: var(--text-dark);
   font-size: 0.95rem;
 }
+/* Phone numbers = slate for trust/calm feel */
 .resource-list .resource-phone {
   font-size: 0.85rem;
-  color: var(--teal-dark);
+  color: var(--slate-dark);
 }
 .resource-list .resource-desc {
   font-size: 0.82rem;
@@ -509,20 +556,37 @@ li { margin-bottom: 0.4rem; }
 }
 .resource-list a {
   font-size: 0.82rem;
-  color: var(--purple-mid);
+  color: var(--terra-mid);
 }
 
-/* --- Callout Box --- */
+/* --- Callout Boxes --- */
+/* Default callout = terracotta */
 .callout {
-  background: var(--purple-pale);
-  border-left: 4px solid var(--purple-mid);
+  background: var(--terra-pale);
+  border-left: 4px solid var(--terra-mid);
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
   padding: 1.25rem 1.5rem;
   margin: 1.5rem 0;
 }
+/* Teal-variant → sage green */
 .callout--teal {
-  background: #E8F8F5;
-  border-left-color: var(--teal);
+  background: var(--sage-pale);
+  border-left-color: var(--sage);
+}
+/* Purple-variant → slate blue (for informational/trust content) */
+.callout--purple {
+  background: var(--slate-pale);
+  border-left-color: var(--slate);
+}
+/* Amber variant for warnings/highlights */
+.callout--amber {
+  background: var(--amber-pale);
+  border-left-color: var(--amber);
+}
+/* Burgundy variant for important notices */
+.callout--burgundy {
+  background: var(--burg-pale);
+  border-left-color: var(--burg);
 }
 .callout p { color: var(--text-mid); font-size: 0.95rem; }
 .callout strong { color: var(--text-dark); }
@@ -611,8 +675,8 @@ li { margin-bottom: 0.4rem; }
 .form-group input:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: var(--purple-mid);
-  box-shadow: 0 0 0 3px rgba(123, 75, 191, 0.12);
+  border-color: var(--terra-mid);
+  box-shadow: 0 0 0 3px rgba(200, 82, 42, 0.12);
 }
 .form-group textarea {
   min-height: 150px;
@@ -626,11 +690,12 @@ li { margin-bottom: 0.4rem; }
 .mt-3 { margin-top: 3rem; }
 .mb-2 { margin-bottom: 2rem; }
 
+/* Pill = amber tint */
 .pill {
   display: inline-block;
-  background: var(--purple-pale);
-  color: var(--purple-mid);
-  border: 1px solid var(--purple-light);
+  background: var(--amber-pale);
+  color: var(--amber-dark);
+  border: 1px solid var(--amber-light);
   border-radius: 50px;
   padding: 0.25rem 0.9rem;
   font-size: 0.78rem;
