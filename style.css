@@ -13,6 +13,7 @@
   --purple-pale:   #F5F0FF;
   --teal:          #1A9E9E;
   --teal-dark:     #147070;
+  --terracotta:    #C04535;
   --pink:          #D4358E;
   --text-dark:     #1A1A2E;
   --text-mid:      #4A4A6A;
@@ -170,7 +171,7 @@ li { margin-bottom: 0.4rem; }
 
 /* --- Hero --- */
 .hero {
-  background: linear-gradient(135deg, var(--purple-deep) 0%, #6B3FA0 60%, var(--teal-dark) 100%);
+  background: var(--terracotta);
   color: white;
   padding: 7rem 1.5rem 6rem;
   text-align: center;
