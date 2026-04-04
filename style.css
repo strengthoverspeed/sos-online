@@ -203,9 +203,8 @@ li { margin-bottom: 0.4rem; }
 }
 
 /* --- Hero --- */
-/* Gradient sweeps terracotta → amber mid-tone → slate deep */
 .hero {
-  background: linear-gradient(135deg, var(--terra-deep) 0%, #A83D1E 45%, var(--slate-dark) 100%);
+  background: linear-gradient(135deg, var(--terra-deep) 0%, var(--terra-pale) 100%);
   color: white;
   padding: 7rem 1.5rem 6rem;
   text-align: center;
@@ -234,6 +233,7 @@ li { margin-bottom: 0.4rem; }
   color: #FFFFFF;
   margin-bottom: 1rem;
   position: relative;
+  text-shadow: 0 2px 12px rgba(110, 37, 16, 0.4);
 }
 /* Sage green highlight in hero title */
 .hero__title em {
@@ -247,6 +247,7 @@ li { margin-bottom: 0.4rem; }
   margin: 0 auto 1.5rem;
   line-height: 1.65;
   position: relative;
+  text-shadow: 0 1px 8px rgba(110, 37, 16, 0.35);
 }
 /* Amber highlight in hero tagline */
 .hero__tagline strong {
@@ -389,9 +390,8 @@ li { margin-bottom: 0.4rem; }
 }
 
 /* --- Page Hero (inner pages) --- */
-/* Terracotta gradient for interior pages */
 .page-hero {
-  background: linear-gradient(135deg, var(--terra-deep) 0%, var(--terra-mid) 100%);
+  background: linear-gradient(135deg, var(--terra-deep) 0%, var(--terra-pale) 100%);
   padding: 3rem 1.5rem 2.5rem;
   text-align: center;
   color: white;
@@ -399,12 +399,14 @@ li { margin-bottom: 0.4rem; }
 .page-hero__title {
   color: #FFFFFF;
   margin-bottom: 0.75rem;
+  text-shadow: 0 2px 12px rgba(110, 37, 16, 0.4);
 }
 .page-hero__desc {
   color: rgba(255,255,255,0.82);
   font-size: 1.05rem;
   max-width: 560px;
   margin: 0 auto;
+  text-shadow: 0 1px 8px rgba(110, 37, 16, 0.35);
 }
 
 /* --- Quote Block --- */
