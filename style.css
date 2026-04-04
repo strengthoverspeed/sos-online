@@ -204,7 +204,7 @@ li { margin-bottom: 0.4rem; }
 
 /* --- Hero --- */
 .hero {
-  background: linear-gradient(135deg, var(--terra-deep) 0%, var(--terra-pale) 100%);
+  background: linear-gradient(135deg, var(--terra-deep) 0%, var(--terra-mid) 100%);
   color: white;
   padding: 7rem 1.5rem 6rem;
   text-align: center;
@@ -391,7 +391,7 @@ li { margin-bottom: 0.4rem; }
 
 /* --- Page Hero (inner pages) --- */
 .page-hero {
-  background: linear-gradient(135deg, var(--terra-deep) 0%, var(--terra-pale) 100%);
+  background: linear-gradient(135deg, var(--terra-deep) 0%, var(--terra-mid) 100%);
   padding: 3rem 1.5rem 2.5rem;
   text-align: center;
   color: white;
