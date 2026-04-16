@@ -89,7 +89,7 @@
       <!-- Support Groups -->
       <div class="card">
         <p class="resource-section__title">Support Groups</p>
-        <ul class="resource-list">
+        <ul class="resource-list" id="resources-support-groups">
           <li>
             <span class="resource-name">Strength Over Speed</span>
             <span class="resource-desc">A community-based support group for gay/bisexual men building on or maintaining abstinence from crystal meth. We meet four times per week, in person, and two additional times online.</span>
@@ -123,7 +123,7 @@
       <!-- Counseling & Treatment -->
       <div class="card">
         <p class="resource-section__title">Counseling &amp; Treatment</p>
-        <ul class="resource-list">
+        <ul class="resource-list" id="resources-counseling">
           <li>
             <span class="resource-name">Project Neon</span>
             <span class="resource-desc">Free one-on-one counseling, support groups, and health info for crystal users.</span>
@@ -157,7 +157,7 @@
       <!-- Crisis & Helplines -->
       <div class="card">
         <p class="resource-section__title">Crisis &amp; Help Lines</p>
-        <ul class="resource-list">
+        <ul class="resource-list" id="resources-crisis">
           <li>
             <span class="resource-name">Crisis Line (24 Hours)</span>
             <span class="resource-phone"><a href="tel:206-461-3222">206-461-3222</a></span>
@@ -183,7 +183,7 @@
       <!-- HIV Testing -->
       <div class="card">
         <p class="resource-section__title">HIV Testing &amp; Sexual Health</p>
-        <ul class="resource-list">
+        <ul class="resource-list" id="resources-hiv-sexual-health">
           <li>
             <span class="resource-name">Gay City Health Project</span>
             <span class="resource-phone"><a href="tel:206-860-6969">206-860-6969</a></span>
@@ -261,5 +261,53 @@
 </footer>
 
 
+<script>
+(function () {
+  // Maps Google Sheet tab names to the <ul> IDs in this page
+  var SHEET_TO_ID = {
+    'Support Groups': 'resources-support-groups',
+    'Counseling & Treatment': 'resources-counseling',
+    'Crisis & Help Lines': 'resources-crisis',
+    'HIV Testing & Sexual Health': 'resources-hiv-sexual-health',
+  };
+
+  function esc(str) {
+    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  function renderItem(row) {
+    var name = row['Organization Name'] || '';
+    var phone = row['Phone'] || '';
+    var website = row['Website'] || '';
+    var desc = row['Description'] || '';
+    if (!name) return '';
+
+    var html = '<li><span class="resource-name">' + esc(name) + '</span>';
+    if (phone) {
+      var phones = phone.split(/[\/,]/).map(function (p) { return p.trim(); }).filter(Boolean);
+      html += '<span class="resource-phone">' + phones.map(function (p) {
+        return '<a href="tel:' + esc(p.replace(/\s/g, '')) + '">' + esc(p) + '</a>';
+      }).join(' &bull; ') + '</span>';
+    }
+    if (desc) html += '<span class="resource-desc">' + esc(desc) + '</span>';
+    if (website) html += '<a href="' + esc(website) + '" target="_blank" rel="noopener">More Info</a>';
+    return html + '</li>';
+  }
+
+  fetch('/.netlify/functions/resources')
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      Object.keys(SHEET_TO_ID).forEach(function (sheetName) {
+        var rows = data[sheetName];
+        if (!rows || !rows.length) return;
+        var ul = document.getElementById(SHEET_TO_ID[sheetName]);
+        if (!ul) return;
+        var html = rows.map(renderItem).join('');
+        if (html) ul.innerHTML = html;
+      });
+    })
+    .catch(function () { /* keep static fallback */ });
+}());
+</script>
 </body>
 </html>
