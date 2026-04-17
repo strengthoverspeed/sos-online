@@ -88,7 +88,8 @@ exports.handler = async () => {
       seen.add(dedupKey);
 
       const loc = (event.location || '').trim();
-      const isOnline = /zoom|online|http|virtual/i.test(loc);
+      const summary = (event.summary || '').toLowerCase();
+      const isOnline = /zoom|online|http|virtual/i.test(loc) || summary.includes('online');
       meetings.push({ day, time, location: loc, online: isOnline, summary: event.summary || 'SOS Meeting' });
     }
 
