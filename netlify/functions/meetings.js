@@ -4,8 +4,17 @@ const CALENDAR_ID = 'ff8ca5c2afc3c79a7d30bf416b943bfad8c051a93214634a1d60992de8f
 const DAY_ORDER = { Sunday: 0, Monday: 1, Tuesday: 2, Wednesday: 3, Thursday: 4, Friday: 5, Saturday: 6 };
 const TZ = 'America/Los_Angeles';
 
-function ptFormat(date, opts) {
-  return new Intl.DateTimeFormat('en-US', { ...opts, timeZone: TZ }).format(date);
+// Use a single formatToParts call with both weekday AND time options so the
+// timezone is applied to the weekday calculation. Calling with only
+// {weekday:'long'} silently falls back to UTC on some Lambda ICU builds.
+function getPTDayAndTime(date) {
+  const parts = new Intl.DateTimeFormat('en-US', {
+    weekday: 'long', hour: 'numeric', minute: '2-digit', hour12: true, timeZone: TZ,
+  }).formatToParts(date);
+  const get = (type) => (parts.find(p => p.type === type) || {}).value || '';
+  const day = get('weekday');
+  const time = `${get('hour')}:${get('minute')} ${get('dayPeriod')}`;
+  return { day, time };
 }
 
 function base64url(input) {
@@ -77,24 +86,18 @@ exports.handler = async () => {
       const startStr = event.start?.dateTime || event.start?.date;
       if (!startStr) continue;
       const date = new Date(startStr);
-      const day = event.start?.dateTime
-        ? ptFormat(date, { weekday: 'long' })
-        : 'All Day';
-      const time = event.start?.dateTime
-        ? ptFormat(date, { hour: 'numeric', minute: '2-digit', hour12: true })
-        : 'All Day';
+      const { day, time } = event.start?.dateTime ? getPTDayAndTime(date) : { day: 'All Day', time: 'All Day' };
       const dedupKey = `${day}-${time}`;
       if (seen.has(dedupKey)) continue;
       seen.add(dedupKey);
 
       const loc = (event.location || '').trim();
-      const summary = (event.summary || '').toLowerCase();
-      const isOnline = /zoom|online|http|virtual/i.test(loc) || summary.includes('online');
+      const isOnline = /zoom|online|http|virtual/i.test(loc) || /online/i.test(event.summary || '');
       meetings.push({ day, time, location: loc, online: isOnline, summary: event.summary || 'SOS Meeting' });
     }
 
     meetings.sort((a, b) => DAY_ORDER[a.day] - DAY_ORDER[b.day]);
-    return { statusCode: 200, headers: responseHeaders, body: JSON.stringify({ v: 2, meetings }) };
+    return { statusCode: 200, headers: responseHeaders, body: JSON.stringify({ v: 3, meetings }) };
   } catch (err) {
     return { statusCode: 500, headers: responseHeaders, body: JSON.stringify({ error: err.message }) };
   }
