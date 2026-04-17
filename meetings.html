@@ -112,7 +112,7 @@
             <th>Format</th>
           </tr>
         </thead>
-        <!-- Static rows are the fallback. JavaScript replaces them when Google Calendar loads. -->
+        <!-- Meeting schedule -->
         <tbody id="meeting-rows">
           <tr>
             <td>Sunday</td>
@@ -134,7 +134,7 @@
           </tr>
           <tr>
             <td>Wednesday</td>
-            <td>TBA</td>
+            <td>6:00 PM</td>
             <td><span class="loc-full">Online via Zoom &mdash; <a href="contact.html">contact us for link</a></span><span class="loc-map">Zoom</span></td>
             <td><span class="badge badge--online">Online</span></td>
           </tr>
@@ -146,7 +146,7 @@
           </tr>
           <tr>
             <td>Saturday</td>
-            <td>TBA</td>
+            <td>5:00 PM</td>
             <td><span class="loc-full">Online via Zoom &mdash; <a href="contact.html">contact us for link</a></span><span class="loc-map">Zoom</span></td>
             <td><span class="badge badge--online">Online</span></td>
           </tr>
@@ -269,42 +269,6 @@
 </footer>
 
 
-<script>
-(function () {
-  const MAP_BASE = 'https://maps.google.com/?q=1520+Bellevue+Ave+Suite+100+Seattle+WA';
-  const PEER_SEATTLE = 'Peer Seattle \u2014 1520 Bellevue Ave, Ste 100, Seattle, WA';
 
-  function locationCell(loc, isOnline) {
-    if (isOnline) {
-      return '<span class="loc-full">Online via Zoom \u2014 <a href="contact.html">contact us for link</a></span>'
-           + '<span class="loc-map">Zoom</span>';
-    }
-    const display = loc || PEER_SEATTLE;
-    return '<a class="loc-full" href="' + MAP_BASE + '" target="_blank" rel="noopener">' + display + '</a>'
-         + '<a class="loc-map" href="' + MAP_BASE + '" target="_blank" rel="noopener">&#128205; Map</a>';
-  }
-
-  function renderRow(m) {
-    return '<tr>'
-      + '<td>' + m.day + '</td>'
-      + '<td>' + m.time + '</td>'
-      + '<td>' + locationCell(m.location, m.online) + '</td>'
-      + '<td><span class="badge ' + (m.online ? 'badge--online">Online' : 'badge--inperson">In Person') + '</span></td>'
-      + '</tr>';
-  }
-
-  fetch('/.netlify/functions/meetings')
-    .then(function (r) { return r.json(); })
-    .then(function (data) {
-      if (data.error) { console.error('Meetings function error:', data.error); return; }
-      if (!data.meetings || !data.meetings.length) { console.warn('Meetings function returned no meetings'); return; }
-      var tbody = document.getElementById('meeting-rows');
-      if (!tbody) return;
-      tbody.innerHTML = data.meetings.map(renderRow).join('');
-      console.log('Meetings loaded from calendar:', data.meetings.length, 'entries');
-    })
-    .catch(function (err) { console.error('Meetings fetch failed:', err); });
-}());
-</script>
 </body>
 </html>
