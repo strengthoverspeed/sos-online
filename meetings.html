@@ -296,12 +296,14 @@
   fetch('/.netlify/functions/meetings')
     .then(function (r) { return r.json(); })
     .then(function (data) {
-      if (!data.meetings || !data.meetings.length) return;
+      if (data.error) { console.error('Meetings function error:', data.error); return; }
+      if (!data.meetings || !data.meetings.length) { console.warn('Meetings function returned no meetings'); return; }
       var tbody = document.getElementById('meeting-rows');
       if (!tbody) return;
       tbody.innerHTML = data.meetings.map(renderRow).join('');
+      console.log('Meetings loaded from calendar:', data.meetings.length, 'entries');
     })
-    .catch(function () { /* keep static fallback */ });
+    .catch(function (err) { console.error('Meetings fetch failed:', err); });
 }());
 </script>
 </body>
