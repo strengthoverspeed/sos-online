@@ -94,7 +94,7 @@ exports.handler = async () => {
     }
 
     meetings.sort((a, b) => DAY_ORDER[a.day] - DAY_ORDER[b.day]);
-    return { statusCode: 200, headers: responseHeaders, body: JSON.stringify({ meetings }) };
+    return { statusCode: 200, headers: responseHeaders, body: JSON.stringify({ v: 2, meetings }) };
   } catch (err) {
     return { statusCode: 500, headers: responseHeaders, body: JSON.stringify({ error: err.message }) };
   }
