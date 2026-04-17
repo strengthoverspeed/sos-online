@@ -2,18 +2,25 @@ const crypto = require('crypto');
 
 const CALENDAR_ID = 'ff8ca5c2afc3c79a7d30bf416b943bfad8c051a93214634a1d60992de8f42cd5@group.calendar.google.com';
 const DAY_ORDER = { Sunday: 0, Monday: 1, Tuesday: 2, Wednesday: 3, Thursday: 4, Friday: 5, Saturday: 6 };
-const TZ = 'America/Los_Angeles';
+const DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-// Use a single formatToParts call with both weekday AND time options so the
-// timezone is applied to the weekday calculation. Calling with only
-// {weekday:'long'} silently falls back to UTC on some Lambda ICU builds.
+// Pure arithmetic Pacific time conversion — no Intl/ICU dependency.
+// US DST: starts 2nd Sunday in March at 2 AM PST (10:00 UTC),
+//         ends 1st Sunday in November at 2 AM PDT (09:00 UTC).
 function getPTDayAndTime(date) {
-  const parts = new Intl.DateTimeFormat('en-US', {
-    weekday: 'long', hour: 'numeric', minute: '2-digit', hour12: true, timeZone: TZ,
-  }).formatToParts(date);
-  const get = (type) => (parts.find(p => p.type === type) || {}).value || '';
-  const day = get('weekday');
-  const time = `${get('hour')}:${get('minute')} ${get('dayPeriod')}`;
+  const y = date.getUTCFullYear();
+  const mar1 = new Date(Date.UTC(y, 2, 1));
+  const dstStart = new Date(Date.UTC(y, 2, 8 + (7 - mar1.getUTCDay()) % 7, 10));
+  const nov1 = new Date(Date.UTC(y, 10, 1));
+  const dstEnd = new Date(Date.UTC(y, 10, 1 + (7 - nov1.getUTCDay()) % 7, 9));
+  const offsetHrs = (date >= dstStart && date < dstEnd) ? -7 : -8;
+  const pt = new Date(date.getTime() + offsetHrs * 3600 * 1000);
+  const day = DAYS[pt.getUTCDay()];
+  const h = pt.getUTCHours();
+  const m = pt.getUTCMinutes();
+  const period = h >= 12 ? 'PM' : 'AM';
+  const h12 = h % 12 || 12;
+  const time = `${h12}:${String(m).padStart(2, '0')} ${period}`;
   return { day, time };
 }
 
