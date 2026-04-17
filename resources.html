@@ -278,6 +278,7 @@
   function renderItem(row) {
     var name = row['Organization Name'] || '';
     var phone = row['Phone'] || '';
+    var email = row['Email'] || '';
     var website = row['Website'] || '';
     var desc = row['Description'] || '';
     if (!name) return '';
@@ -289,6 +290,7 @@
         return '<a href="tel:' + esc(p.replace(/\s/g, '')) + '">' + esc(p) + '</a>';
       }).join(' &bull; ') + '</span>';
     }
+    if (email) html += '<span class="resource-email"><a href="mailto:' + esc(email) + '">' + esc(email) + '</a></span>';
     if (desc) html += '<span class="resource-desc">' + esc(desc) + '</span>';
     if (website) html += '<a href="' + esc(website) + '" target="_blank" rel="noopener">More Info</a>';
     return html + '</li>';
