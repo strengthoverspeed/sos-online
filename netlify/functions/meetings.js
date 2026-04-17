@@ -1,8 +1,12 @@
 const crypto = require('crypto');
 
 const CALENDAR_ID = 'ff8ca5c2afc3c79a7d30bf416b943bfad8c051a93214634a1d60992de8f42cd5@group.calendar.google.com';
-const DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 const DAY_ORDER = { Sunday: 0, Monday: 1, Tuesday: 2, Wednesday: 3, Thursday: 4, Friday: 5, Saturday: 6 };
+const TZ = 'America/Los_Angeles';
+
+function ptFormat(date, opts) {
+  return new Intl.DateTimeFormat('en-US', { ...opts, timeZone: TZ }).format(date);
+}
 
 function base64url(input) {
   const buf = Buffer.isBuffer(input) ? input : Buffer.from(input);
@@ -73,9 +77,11 @@ exports.handler = async () => {
       const startStr = event.start?.dateTime || event.start?.date;
       if (!startStr) continue;
       const date = new Date(startStr);
-      const day = DAYS[date.getDay()];
+      const day = event.start?.dateTime
+        ? ptFormat(date, { weekday: 'long' })
+        : 'All Day';
       const time = event.start?.dateTime
-        ? date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true, timeZone: 'America/Los_Angeles' })
+        ? ptFormat(date, { hour: 'numeric', minute: '2-digit', hour12: true })
         : 'All Day';
       const dedupKey = `${day}-${time}`;
       if (seen.has(dedupKey)) continue;
