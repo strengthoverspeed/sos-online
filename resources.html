@@ -297,10 +297,16 @@
   }
 
   fetch('/.netlify/functions/resources')
-    .then(function (r) { return r.json(); })
+    .then(function (r) {
+      if (!r.ok) { console.error('[SOS resources] function HTTP ' + r.status); return r.json().then(function(e){ throw e; }); }
+      return r.json();
+    })
     .then(function (data) {
+      console.log('[SOS resources] sheet data received:', JSON.stringify(Object.keys(data)));
+      if (data.error) { console.error('[SOS resources] function error:', data.error); return; }
       Object.keys(SHEET_TO_ID).forEach(function (sheetName) {
         var rows = data[sheetName];
+        console.log('[SOS resources] sheet "' + sheetName + '":', rows ? rows.length + ' rows' : 'not found');
         if (!rows || !rows.length) return;
         var ul = document.getElementById(SHEET_TO_ID[sheetName]);
         if (!ul) return;
@@ -308,7 +314,7 @@
         if (html) ul.innerHTML = html;
       });
     })
-    .catch(function () { /* keep static fallback */ });
+    .catch(function (err) { console.error('[SOS resources] fetch failed:', err); });
 }());
 </script>
 </body>
