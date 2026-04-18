@@ -430,6 +430,7 @@ li { margin-bottom: 0.4rem; }
   font-weight: 600;
   color: var(--purple-deep);
 }
+
 .meetings-table--compact thead th {
   padding: 0.6rem 1.25rem;
 }
