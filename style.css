@@ -452,6 +452,12 @@ li { margin-bottom: 0.4rem; }
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
+a.badge {
+  text-decoration: none;
+}
+a.badge:hover {
+  opacity: 0.8;
+}
 .badge--online {
   background: #D0F7F0;
   color: var(--teal-dark);
