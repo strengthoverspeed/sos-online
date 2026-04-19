@@ -330,6 +330,7 @@
       Object.keys(SHEET_TO_ID).forEach(function (sheetName) {
         var rows = data[sheetName];
         console.log('[SOS resources] sheet "' + sheetName + '":', rows ? rows.length + ' rows' : 'not found');
+        if (rows && rows.length) console.log('[SOS resources] first row of "' + sheetName + '":', JSON.stringify(rows[0]));
         if (!rows || !rows.length) return;
         var ul = document.getElementById(SHEET_TO_ID[sheetName]);
         if (!ul) return;
