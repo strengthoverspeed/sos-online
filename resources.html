@@ -92,18 +92,18 @@
         <ul class="resource-list" id="resources-support-groups">
           <li>
             <span class="resource-name">Strength Over Speed</span>
-            <span class="resource-desc">A community-based support group for gay/bisexual men building on or maintaining abstinence from crystal meth. We meet four times per week, in person, and two additional times online.</span>
             <a href="contact.html">More Info</a>
+            <span class="resource-desc">A community-based support group for gay/bisexual men building on or maintaining abstinence from crystal meth. We meet four times per week, in person, and two additional times online.</span>
           </li>
           <li>
             <span class="resource-name">Gay &amp; Sober</span>
-            <span class="resource-desc">Online community and resources for LGBTQ+ people in recovery.</span>
             <a href="https://www.gayandsober.org/" target="_blank" rel="noopener">More Info</a>
+            <span class="resource-desc">Online community and resources for LGBTQ+ people in recovery.</span>
           </li>
           <li>
             <span class="resource-name">SMART Recovery (Non-12 Step)</span>
-            <span class="resource-desc">Science-based addiction recovery program as an alternative to 12-step.</span>
             <a href="https://www.smartrecovery.org/" target="_blank" rel="noopener">More Info</a>
+            <span class="resource-desc">Science-based addiction recovery program as an alternative to 12-step.</span>
           </li>
           <li>
             <span class="resource-name">Crystal Meth Anonymous</span>
@@ -126,30 +126,30 @@
         <ul class="resource-list" id="resources-counseling">
           <li>
             <span class="resource-name">Project Neon</span>
-            <span class="resource-desc">Free one-on-one counseling, support groups, and health info for crystal users.</span>
             <a href="https://www.gaycity.org/project-neon/" target="_blank" rel="noopener">More Info</a>
+            <span class="resource-desc">Free one-on-one counseling, support groups, and health info for crystal users.</span>
           </li>
           <li>
             <span class="resource-name">Gay City: Resource Navigator</span>
-            <span class="resource-desc">Comprehensive directory of LGBTQ+ affirming services in the Seattle area.</span>
             <a href="https://www.gaycity.org/" target="_blank" rel="noopener">More Info</a>
+            <span class="resource-desc">Comprehensive directory of LGBTQ+ affirming services in the Seattle area.</span>
           </li>
           <li>
             <span class="resource-name">Community Based Research Centre (CBRC)</span>
-            <span class="resource-desc">Research and publications on health issues affecting gay and bisexual men.</span>
             <a href="https://www.cbrc.net/reports_and_publications" target="_blank" rel="noopener">More Info</a>
+            <span class="resource-desc">Research and publications on health issues affecting gay and bisexual men.</span>
           </li>
           <li>
             <span class="resource-name">Entre Hermanos</span>
-            <span class="resource-desc">Support and resources for the Latino LGBTQ+ community.</span>
             <a href="http://www.entrehermanos.org/" target="_blank" rel="noopener">More Info</a>
             <span class="resource-phone"><a href="tel:206-322-7700">206-322-7700</a></span>
+            <span class="resource-desc">Support and resources for the Latino LGBTQ+ community.</span>
           </li>
           <li>
             <span class="resource-name">POCAAN</span>
-            <span class="resource-desc">Community-based agency serving people of color.</span>
             <a href="http://www.pocaan.org/" target="_blank" rel="noopener">More Info</a>
             <span class="resource-phone"><a href="tel:206-322-7061">206-322-7061</a></span>
+            <span class="resource-desc">Community-based agency serving people of color.</span>
           </li>
         </ul>
       </div>
@@ -162,9 +162,9 @@
           <ul class="resource-list" id="resources-crisis">
             <li>
               <span class="resource-name">Crisis Line (24 Hours)</span>
-              <span class="resource-desc">Confidential crisis support available any time, day or night.</span>
               <a href="http://www.crisisclinic.org/" target="_blank" rel="noopener">More Info</a>
               <span class="resource-phone"><a href="tel:206-461-3222">206-461-3222</a></span>
+              <span class="resource-desc">Confidential crisis support available any time, day or night.</span>
             </li>
             <li>
               <span class="resource-name">Alcohol/Drug 24-Hour Help Line</span>
@@ -197,9 +197,9 @@
         <ul class="resource-list" id="resources-hiv-sexual-health">
           <li>
             <span class="resource-name">Gay City Health Project</span>
-            <span class="resource-desc">HIV and STI testing, prevention services, and community health programs for LGBTQ+ people.</span>
             <a href="http://www.gaycity.org/" target="_blank" rel="noopener">More Info</a>
             <span class="resource-phone"><a href="tel:206-860-6969">206-860-6969</a></span>
+            <span class="resource-desc">HIV and STI testing, prevention services, and community health programs for LGBTQ+ people.</span>
           </li>
           <li>
             <span class="resource-name">HIV/STD Hotline</span>
@@ -296,7 +296,6 @@
     if (!name) return '';
 
     var html = '<li><span class="resource-name">' + esc(name) + '</span>';
-    if (desc) html += '<span class="resource-desc">' + esc(desc) + '</span>';
     if (website) html += '<a href="' + esc(website) + '" target="_blank" rel="noopener">More Info</a>';
     if (phone) {
       var phones = phone.split(/[\/,]/).map(function (p) { return p.trim(); }).filter(Boolean);
@@ -305,6 +304,7 @@
       }).join(' &bull; ') + '</span>';
     }
     if (email) html += '<span class="resource-email"><a href="mailto:' + esc(email) + '">' + esc(email) + '</a></span>';
+    if (desc) html += '<span class="resource-desc">' + esc(desc) + '</span>';
     return html + '</li>';
   }
 
