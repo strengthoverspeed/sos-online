@@ -141,15 +141,15 @@
           </li>
           <li>
             <span class="resource-name">Entre Hermanos</span>
-            <span class="resource-phone"><a href="tel:206-322-7700">206-322-7700</a></span>
             <span class="resource-desc">Support and resources for the Latino LGBTQ+ community.</span>
             <a href="http://www.entrehermanos.org/" target="_blank" rel="noopener">More Info</a>
+            <span class="resource-phone"><a href="tel:206-322-7700">206-322-7700</a></span>
           </li>
           <li>
             <span class="resource-name">POCAAN</span>
-            <span class="resource-phone"><a href="tel:206-322-7061">206-322-7061</a></span>
             <span class="resource-desc">Community-based agency serving people of color.</span>
             <a href="http://www.pocaan.org/" target="_blank" rel="noopener">More Info</a>
+            <span class="resource-phone"><a href="tel:206-322-7061">206-322-7061</a></span>
           </li>
         </ul>
       </div>
@@ -162,17 +162,17 @@
           <ul class="resource-list" id="resources-crisis">
             <li>
               <span class="resource-name">Crisis Line (24 Hours)</span>
-              <span class="resource-phone"><a href="tel:206-461-3222">206-461-3222</a></span>
               <span class="resource-desc">Confidential crisis support available any time, day or night.</span>
               <a href="http://www.crisisclinic.org/" target="_blank" rel="noopener">More Info</a>
+              <span class="resource-phone"><a href="tel:206-461-3222">206-461-3222</a></span>
             </li>
             <li>
               <span class="resource-name">Alcohol/Drug 24-Hour Help Line</span>
+              <a href="http://www.adhl.org/" target="_blank" rel="noopener">More Info</a>
               <span class="resource-phone">
                 <a href="tel:206-722-3700">206-722-3700</a> &bull;
                 <a href="tel:1-800-562-1240">1-800-562-1240</a>
               </span>
-              <a href="http://www.adhl.org/" target="_blank" rel="noopener">More Info</a>
             </li>
             <li>
               <span class="resource-name">988 Suicide &amp; Crisis Lifeline</span>
@@ -197,9 +197,9 @@
         <ul class="resource-list" id="resources-hiv-sexual-health">
           <li>
             <span class="resource-name">Gay City Health Project</span>
-            <span class="resource-phone"><a href="tel:206-860-6969">206-860-6969</a></span>
             <span class="resource-desc">HIV and STI testing, prevention services, and community health programs for LGBTQ+ people.</span>
             <a href="http://www.gaycity.org/" target="_blank" rel="noopener">More Info</a>
+            <span class="resource-phone"><a href="tel:206-860-6969">206-860-6969</a></span>
           </li>
           <li>
             <span class="resource-name">HIV/STD Hotline</span>
@@ -296,6 +296,8 @@
     if (!name) return '';
 
     var html = '<li><span class="resource-name">' + esc(name) + '</span>';
+    if (desc) html += '<span class="resource-desc">' + esc(desc) + '</span>';
+    if (website) html += '<a href="' + esc(website) + '" target="_blank" rel="noopener">More Info</a>';
     if (phone) {
       var phones = phone.split(/[\/,]/).map(function (p) { return p.trim(); }).filter(Boolean);
       html += '<span class="resource-phone">' + phones.map(function (p) {
@@ -303,8 +305,6 @@
       }).join(' &bull; ') + '</span>';
     }
     if (email) html += '<span class="resource-email"><a href="mailto:' + esc(email) + '">' + esc(email) + '</a></span>';
-    if (desc) html += '<span class="resource-desc">' + esc(desc) + '</span>';
-    if (website) html += '<a href="' + esc(website) + '" target="_blank" rel="noopener">More Info</a>';
     return html + '</li>';
   }
 
