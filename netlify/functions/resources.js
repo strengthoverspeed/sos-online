@@ -1,38 +1,81 @@
-const crypto = require('crypto');
+const TABS = [
+  {
+    name: 'Support Groups',
+    url: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRPaKZ-CpAKxrCsuOnUsFNUZA6ANUuVV1JqmfEYC2q2sqJNWuNMEo1vW_L2YgZ3MJVM0xspc-f0rQVz/pub?gid=1943624258&single=true&output=csv',
+  },
+  {
+    name: 'Counseling & Treatment',
+    url: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRPaKZ-CpAKxrCsuOnUsFNUZA6ANUuVV1JqmfEYC2q2sqJNWuNMEo1vW_L2YgZ3MJVM0xspc-f0rQVz/pub?gid=409498218&single=true&output=csv',
+  },
+  {
+    name: 'Crisis & Help Lines',
+    url: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRPaKZ-CpAKxrCsuOnUsFNUZA6ANUuVV1JqmfEYC2q2sqJNWuNMEo1vW_L2YgZ3MJVM0xspc-f0rQVz/pub?gid=822688570&single=true&output=csv',
+  },
+  {
+    name: 'Harm Reduction Vending Machine Locations',
+    url: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRPaKZ-CpAKxrCsuOnUsFNUZA6ANUuVV1JqmfEYC2q2sqJNWuNMEo1vW_L2YgZ3MJVM0xspc-f0rQVz/pub?gid=650734169&single=true&output=csv',
+  },
+  {
+    name: 'HIV Testing & Sexual Health',
+    url: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRPaKZ-CpAKxrCsuOnUsFNUZA6ANUuVV1JqmfEYC2q2sqJNWuNMEo1vW_L2YgZ3MJVM0xspc-f0rQVz/pub?gid=1091868866&single=true&output=csv',
+  },
+];
 
-function base64url(input) {
-  const buf = Buffer.isBuffer(input) ? input : Buffer.from(input);
-  return buf.toString('base64').replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
-}
+function parseCSV(text) {
+  const rows = [];
+  let field = '';
+  let row = [];
+  let inQuotes = false;
 
-function makeJWT(email, privateKey, scope) {
-  const now = Math.floor(Date.now() / 1000);
-  const header = base64url(JSON.stringify({ alg: 'RS256', typ: 'JWT' }));
-  const payload = base64url(JSON.stringify({
-    iss: email, scope,
-    aud: 'https://oauth2.googleapis.com/token',
-    exp: now + 3600, iat: now,
-  }));
-  const sigInput = `${header}.${payload}`;
-  const signer = crypto.createSign('RSA-SHA256');
-  signer.update(sigInput);
-  const pem = privateKey.replace(/\\n/g, '\n');
-  return `${sigInput}.${base64url(signer.sign(pem))}`;
-}
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i];
+    const next = text[i + 1];
 
-async function getAccessToken(email, privateKey, scope) {
-  const jwt = makeJWT(email, privateKey, scope);
-  const res = await fetch('https://oauth2.googleapis.com/token', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: new URLSearchParams({
-      grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer',
-      assertion: jwt,
-    }),
-  });
-  const data = await res.json();
-  if (!data.access_token) throw new Error(`Token error: ${JSON.stringify(data)}`);
-  return data.access_token;
+    if (inQuotes) {
+      if (ch === '"' && next === '"') {
+        field += '"';
+        i++;
+      } else if (ch === '"') {
+        inQuotes = false;
+      } else {
+        field += ch;
+      }
+    } else {
+      if (ch === '"') {
+        inQuotes = true;
+      } else if (ch === ',') {
+        row.push(field.trim());
+        field = '';
+      } else if (ch === '\r' && next === '\n') {
+        row.push(field.trim());
+        rows.push(row);
+        row = [];
+        field = '';
+        i++;
+      } else if (ch === '\n' || ch === '\r') {
+        row.push(field.trim());
+        rows.push(row);
+        row = [];
+        field = '';
+      } else {
+        field += ch;
+      }
+    }
+  }
+  if (field || row.length) {
+    row.push(field.trim());
+    if (row.some(Boolean)) rows.push(row);
+  }
+
+  if (rows.length < 2) return [];
+  const headers = rows[0];
+  return rows.slice(1)
+    .filter(r => r.some(Boolean))
+    .map(r => {
+      const obj = {};
+      headers.forEach((h, i) => { obj[h] = (r[i] || '').trim(); });
+      return obj;
+    });
 }
 
 exports.handler = async () => {
@@ -43,44 +86,16 @@ exports.handler = async () => {
   };
 
   try {
-    const email = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
-    const key = process.env.GOOGLE_PRIVATE_KEY;
-    const spreadsheetId = process.env.SPREADSHEET_ID;
-    if (!email || !key || !spreadsheetId) throw new Error('Missing required env vars');
+    const results = await Promise.all(
+      TABS.map(async ({ name, url }) => {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error(`HTTP ${res.status} fetching tab "${name}"`);
+        const text = await res.text();
+        return [name, parseCSV(text)];
+      })
+    );
 
-    const token = await getAccessToken(email, key, 'https://www.googleapis.com/auth/spreadsheets.readonly');
-
-    // Get sheet metadata to discover tab names
-    const metaRes = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    const meta = await metaRes.json();
-    if (meta.error) throw new Error(`Sheets metadata error: ${JSON.stringify(meta.error)}`);
-
-    const sheetNames = (meta.sheets || []).map(s => s.properties.title);
-
-    // Read each sheet in parallel
-    const sheetResults = await Promise.all(sheetNames.map(async (sheetName) => {
-      const rangeRes = await fetch(
-        `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${encodeURIComponent(sheetName)}`,
-        { headers: { Authorization: `Bearer ${token}` } },
-      );
-      const rangeData = await rangeRes.json();
-      const rows = rangeData.values || [];
-      if (rows.length < 2) return [sheetName, []];
-
-      const [colHeaders, ...dataRows] = rows;
-      const records = dataRows
-        .filter(row => row.some(cell => cell))
-        .map(row => {
-          const obj = {};
-          colHeaders.forEach((h, i) => { obj[h] = (row[i] || '').trim(); });
-          return obj;
-        });
-      return [sheetName, records];
-    }));
-
-    const result = Object.fromEntries(sheetResults);
+    const result = Object.fromEntries(results);
     return { statusCode: 200, headers: responseHeaders, body: JSON.stringify(result) };
   } catch (err) {
     return { statusCode: 500, headers: responseHeaders, body: JSON.stringify({ error: err.message }) };
