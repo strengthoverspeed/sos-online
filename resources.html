@@ -91,14 +91,7 @@
         <p class="resource-section__title">Support Groups</p>
         <ul class="resource-list" id="resources-support-groups">
           <li>
-            <span class="resource-name">Strength Over Speed</span>
-            <a href="contact.html">More Info</a>
-            <span class="resource-desc">A community-based support group for gay/bisexual men building on or maintaining abstinence from crystal meth. We meet four times per week, in person, and two additional times online.</span>
-          </li>
-          <li>
-            <span class="resource-name">Gay &amp; Sober</span>
-            <a href="https://www.gayandsober.org/" target="_blank" rel="noopener">More Info</a>
-            <span class="resource-desc">Online community and resources for LGBTQ+ people in recovery.</span>
+            <span class="resource-name">Peer Seattle</span>
           </li>
           <li>
             <span class="resource-name">SMART Recovery (Non-12 Step)</span>
@@ -110,11 +103,16 @@
             <a href="http://www.crystalmeth.org/" target="_blank" rel="noopener">More Info</a>
           </li>
           <li>
-            <span class="resource-name">Alcoholics Anonymous (AA) &mdash; Seattle</span>
+            <span class="resource-name">Strength Over Speed</span>
+            <a href="contact.html">More Info</a>
+            <span class="resource-desc">A community-based support group for gay/bisexual men building on or maintaining abstinence from crystal meth. We meet four times per week, in person, and two additional times online.</span>
+          </li>
+          <li>
+            <span class="resource-name">Alcoholics Anonymous (AA)</span>
             <a href="http://www.seattleaa.org/" target="_blank" rel="noopener">More Info</a>
           </li>
           <li>
-            <span class="resource-name">Narcotics Anonymous (NA) &mdash; Seattle</span>
+            <span class="resource-name">Narcotics Anonymous (NA)</span>
             <a href="http://www.seattlena.org/" target="_blank" rel="noopener">More Info</a>
           </li>
         </ul>
@@ -125,14 +123,7 @@
         <p class="resource-section__title">Counseling &amp; Treatment</p>
         <ul class="resource-list" id="resources-counseling">
           <li>
-            <span class="resource-name">Project Neon</span>
-            <a href="https://www.gaycity.org/project-neon/" target="_blank" rel="noopener">More Info</a>
-            <span class="resource-desc">Free one-on-one counseling, support groups, and health info for crystal users.</span>
-          </li>
-          <li>
-            <span class="resource-name">Gay City: Resource Navigator</span>
-            <a href="https://www.gaycity.org/" target="_blank" rel="noopener">More Info</a>
-            <span class="resource-desc">Comprehensive directory of LGBTQ+ affirming services in the Seattle area.</span>
+            <span class="resource-name">Seattle&rsquo;s LGBTQ+ Center</span>
           </li>
           <li>
             <span class="resource-name">Community Based Research Centre (CBRC)</span>
@@ -150,6 +141,9 @@
             <a href="http://www.pocaan.org/" target="_blank" rel="noopener">More Info</a>
             <span class="resource-phone"><a href="tel:206-322-7061">206-322-7061</a></span>
             <span class="resource-desc">Community-based agency serving people of color.</span>
+          </li>
+          <li>
+            <span class="resource-name">Washington Recovery Help Line</span>
           </li>
         </ul>
       </div>
@@ -179,6 +173,9 @@
               <span class="resource-phone"><a href="tel:988">Call or text 988</a></span>
               <span class="resource-desc">Free, confidential support for people in distress. Available 24/7.</span>
             </li>
+            <li>
+              <span class="resource-name">The Warm Line</span>
+            </li>
           </ul>
         </div>
 
@@ -186,6 +183,11 @@
         <div class="card">
           <p class="resource-section__title">Harm Reduction Vending Machines</p>
           <ul class="resource-list" id="resources-harm-reduction-vending-machines">
+            <li><span class="resource-name">Harm Reduction Vending Machines &mdash; Peer Seattle</span></li>
+            <li><span class="resource-name">Harm Reduction Vending Machines &mdash; Compass Center</span></li>
+            <li><span class="resource-name">Harm Reduction Vending Machines &mdash; Peer Kent</span></li>
+            <li><span class="resource-name">Harm Reduction Vending Machines &mdash; YouthCare&rsquo;s Orion Center</span></li>
+            <li><span class="resource-name">Harm Reduction Vending Machines &mdash; MRJC</span></li>
           </ul>
         </div>
 
@@ -196,7 +198,7 @@
         <p class="resource-section__title">HIV Testing &amp; Sexual Health</p>
         <ul class="resource-list" id="resources-hiv-sexual-health">
           <li>
-            <span class="resource-name">Gay City Health Project</span>
+            <span class="resource-name">Gay City Health Project at Seattle LGBTQ+ Center</span>
             <a href="http://www.gaycity.org/" target="_blank" rel="noopener">More Info</a>
             <span class="resource-phone"><a href="tel:206-860-6969">206-860-6969</a></span>
             <span class="resource-desc">HIV and STI testing, prevention services, and community health programs for LGBTQ+ people.</span>
@@ -205,6 +207,15 @@
             <span class="resource-name">HIV/STD Hotline</span>
             <span class="resource-phone"><a href="tel:206-205-7837">206-205-7837</a></span>
             <span class="resource-desc">King County Public Health HIV/STD testing and information.</span>
+          </li>
+          <li>
+            <span class="resource-name">Sexual Health Clinic at Harborview</span>
+          </li>
+          <li>
+            <span class="resource-name">Public Health Centers</span>
+          </li>
+          <li>
+            <span class="resource-name">Federally Qualified Health Centers</span>
           </li>
         </ul>
       </div>
@@ -303,7 +314,7 @@
         return '<a href="tel:' + esc(p.replace(/\s/g, '')) + '">' + esc(p) + '</a>';
       }).join(' &bull; ') + '</span>';
     }
-    if (email) html += '<span class="resource-email"><a href="mailto:' + esc(email) + '">' + esc(email) + '</a></span>';
+    if (email) html += '<span class="resource-email"><a href="mailto:' + esc(email) + '">Email</a></span>';
     if (desc) html += '<span class="resource-desc">' + esc(desc) + '</span>';
     return html + '</li>';
   }
