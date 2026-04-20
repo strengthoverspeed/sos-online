@@ -3,3 +3,24 @@
 
 [context.production.environment]
   NODE_VERSION = "18"
+
+[[redirects]]
+  from = "https://www.strengthoverspeed.net/*"
+  to = "https://strengthoverspeed.net/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/index.html"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/events"
+  to = "/meetings.html"
+  status = 301
+
+[[redirects]]
+  from = "/events/*"
+  to = "/meetings.html"
+  status = 301
