@@ -14,3 +14,13 @@
   from = "/index.html"
   to = "/"
   status = 301
+
+[[redirects]]
+  from = "/events"
+  to = "/meetings.html"
+  status = 301
+
+[[redirects]]
+  from = "/events/*"
+  to = "/meetings.html"
+  status = 301
