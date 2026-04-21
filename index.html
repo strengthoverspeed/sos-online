@@ -20,6 +20,8 @@
 </head>
 <body>
 
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
 <!-- Navigation -->
 <nav class="nav" role="navigation" aria-label="Main navigation">
   <div class="nav__inner">
@@ -27,11 +29,11 @@
       <span class="nav__logo-main">Strength Over Speed</span>
       <span class="nav__logo-sub">SOS &mdash; Seattle</span>
     </a>
-    <button class="nav__toggle" aria-label="Toggle menu" onclick="this.classList.toggle('open'); document.getElementById('navlinks').classList.toggle('open')">
+    <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navlinks" onclick="var e=this.getAttribute('aria-expanded')==='true';this.setAttribute('aria-expanded',String(!e));this.classList.toggle('open');document.getElementById('navlinks').classList.toggle('open')">
       <span></span><span></span><span></span>
     </button>
     <ul class="nav__links" id="navlinks">
-      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="index.html" class="active" aria-current="page">Home</a></li>
       <li><a href="about.html">Who We Are</a></li>
       <li><a href="what-we-do.html">What We Do</a></li>
       <li><a href="meetings.html">Meetings</a></li>
@@ -42,6 +44,8 @@
     </ul>
   </div>
 </nav>
+
+<main id="main-content">
 
 <!-- Hero -->
 <section class="hero" role="banner">
@@ -185,12 +189,13 @@
 
     <div style="overflow-x: auto;">
       <table class="meetings-table">
+        <caption class="visually-hidden">Weekly SOS meeting schedule</caption>
         <thead>
           <tr>
-            <th>Day</th>
-            <th>Time</th>
-            <th>Location</th>
-            <th>Format</th>
+            <th scope="col">Day</th>
+            <th scope="col">Time</th>
+            <th scope="col">Location</th>
+            <th scope="col">Format</th>
           </tr>
         </thead>
         <tbody>
@@ -238,6 +243,8 @@
     </p>
   </div>
 </section>
+
+</main>
 
 <!-- Footer -->
 <footer class="footer" role="contentinfo">

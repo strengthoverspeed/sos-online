@@ -20,13 +20,15 @@
 </head>
 <body>
 
-<nav class="nav" role="navigation">
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<nav class="nav" role="navigation" aria-label="Main navigation">
   <div class="nav__inner">
     <a class="nav__logo" href="index.html">
       <span class="nav__logo-main">Strength Over Speed</span>
       <span class="nav__logo-sub">SOS &mdash; Seattle</span>
     </a>
-    <button class="nav__toggle" aria-label="Toggle menu" onclick="this.classList.toggle('open'); document.getElementById('navlinks').classList.toggle('open')">
+    <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navlinks" onclick="var e=this.getAttribute('aria-expanded')==='true';this.setAttribute('aria-expanded',String(!e));this.classList.toggle('open');document.getElementById('navlinks').classList.toggle('open')">
       <span></span><span></span><span></span>
     </button>
     <ul class="nav__links" id="navlinks">
@@ -34,13 +36,15 @@
       <li><a href="about.html">Who We Are</a></li>
       <li><a href="what-we-do.html">What We Do</a></li>
       <li><a href="meetings.html">Meetings</a></li>
-      <li><a href="resources.html" class="active">Resources</a></li>
+      <li><a href="resources.html" class="active" aria-current="page">Resources</a></li>
       <li><a href="friends-family.html">Friends &amp; Family</a></li>
       <li><a href="our-stories.html">Our Stories</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
   </div>
 </nav>
+
+<main id="main-content">
 
 <section class="page-hero">
   <span class="pill" style="background: rgba(255,255,255,0.15); color: rgba(255,255,255,0.85); border-color: transparent; margin-bottom: 1rem;">Get Help</span>
@@ -247,7 +251,9 @@
   </div>
 </section>
 
-<footer class="footer">
+</main>
+
+<footer class="footer" role="contentinfo">
   <div class="footer__inner">
     <div class="footer__brand">
       <a class="nav__logo" href="index.html" style="margin-bottom: 0.75rem;">
