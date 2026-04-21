@@ -31,6 +31,27 @@
   --transition:    all 0.25s ease;
 }
 
+/* --- Skip Link --- */
+.skip-link {
+  position: absolute;
+  top: -48px;
+  left: 0;
+  background: var(--purple-mid);
+  color: #FFFFFF;
+  padding: 0.6rem 1.25rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 0 0 var(--radius-sm) 0;
+  z-index: 9999;
+  transition: top 0.2s ease;
+}
+.skip-link:focus {
+  top: 0;
+  outline: 3px solid #A8EDEA;
+  outline-offset: 2px;
+}
+
 /* --- Reset & Base --- */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -146,6 +167,12 @@ li { margin-bottom: 0.4rem; }
 }
 .nav__links a:hover,
 .nav__links a.active {
+  background: rgba(255,255,255,0.15);
+  color: #FFFFFF;
+}
+.nav__links a:focus-visible {
+  outline: 2px solid #A8EDEA;
+  outline-offset: 2px;
   background: rgba(255,255,255,0.15);
   color: #FFFFFF;
 }
@@ -267,6 +294,10 @@ li { margin-bottom: 0.4rem; }
   background: var(--purple-mid);
   transform: translateY(-2px);
   color: #FFFFFF;
+}
+.btn:focus-visible {
+  outline: 3px solid var(--teal);
+  outline-offset: 3px;
 }
 
 /* --- Cards --- */
@@ -628,6 +659,17 @@ a.badge:hover {
 
 /* --- Utility --- */
 .text-center { text-align: center; }
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
 .mt-1 { margin-top: 1rem; }
 .mt-2 { margin-top: 2rem; }
 .mt-3 { margin-top: 3rem; }

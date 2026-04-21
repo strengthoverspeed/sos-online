@@ -20,20 +20,22 @@
 </head>
 <body>
 
-<nav class="nav" role="navigation">
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<nav class="nav" role="navigation" aria-label="Main navigation">
   <div class="nav__inner">
     <a class="nav__logo" href="index.html">
       <span class="nav__logo-main">Strength Over Speed</span>
       <span class="nav__logo-sub">SOS &mdash; Seattle</span>
     </a>
-    <button class="nav__toggle" aria-label="Toggle menu" onclick="this.classList.toggle('open'); document.getElementById('navlinks').classList.toggle('open')">
+    <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navlinks" onclick="var e=this.getAttribute('aria-expanded')==='true';this.setAttribute('aria-expanded',String(!e));this.classList.toggle('open');document.getElementById('navlinks').classList.toggle('open')">
       <span></span><span></span><span></span>
     </button>
     <ul class="nav__links" id="navlinks">
       <li><a href="index.html">Home</a></li>
       <li><a href="about.html">Who We Are</a></li>
       <li><a href="what-we-do.html">What We Do</a></li>
-      <li><a href="meetings.html" class="active">Meetings</a></li>
+      <li><a href="meetings.html" class="active" aria-current="page">Meetings</a></li>
       <li><a href="resources.html">Resources</a></li>
       <li><a href="friends-family.html">Friends &amp; Family</a></li>
       <li><a href="our-stories.html">Our Stories</a></li>
@@ -41,6 +43,8 @@
     </ul>
   </div>
 </nav>
+
+<main id="main-content">
 
 <section class="page-hero">
   <h1 class="page-hero__title">Meetings</h1>
@@ -103,11 +107,12 @@
     </div>
 
     <table class="meetings-table meetings-table--compact">
+        <caption class="visually-hidden">Weekly SOS meeting schedule</caption>
         <thead>
           <tr>
-            <th>Day</th>
-            <th>Time</th>
-            <th>Location</th>
+            <th scope="col">Day</th>
+            <th scope="col">Time</th>
+            <th scope="col">Location</th>
           </tr>
         </thead>
         <!-- Meeting schedule -->
@@ -224,7 +229,9 @@
   <p class="quote-block__attr">Strength Over Speed</p>
 </div>
 
-<footer class="footer">
+</main>
+
+<footer class="footer" role="contentinfo">
   <div class="footer__inner">
     <div class="footer__brand">
       <a class="nav__logo" href="index.html" style="margin-bottom: 0.75rem;">
