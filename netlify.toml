@@ -5,6 +5,18 @@
   NODE_VERSION = "18"
 
 [[redirects]]
+  from = "http://strengthoverspeed.net/*"
+  to = "https://strengthoverspeed.net/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://www.strengthoverspeed.net/*"
+  to = "https://strengthoverspeed.net/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
   from = "https://www.strengthoverspeed.net/*"
   to = "https://strengthoverspeed.net/:splat"
   status = 301
